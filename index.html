@@ -1,61 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Bacon Hub | Key System</title>
-    <style>
-        body { background: #111; color: white; font-family: 'Segoe UI', sans-serif; text-align: center; padding-top: 100px; }
-        .box { background: #222; padding: 40px; border-radius: 15px; display: inline-block; border: 2px solid #444; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { color: #ffcc00; margin-bottom: 5px; }
-        #timer { font-size: 50px; color: #ff4b4b; font-weight: bold; margin: 20px; }
-        .key-box { display: none; margin-top: 20px; padding: 15px; background: #000; border: 1px dashed #00ff00; }
-        #keyText { color: #00ff00; font-size: 32px; font-weight: bold; }
-        .btn { background: #ffcc00; color: #000; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vynixius™ | Advanced Script Hub</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="box">
-        <h1>BACON HUB</h1>
-        <p style="color: #888;">By Bacon</p>
-        <p>Your daily key is unlocking...</p>
-        <div id="timer">01:05</div>
-        
-        <div id="key-box" class="key-box">
-            <p>Your Key:</p>
-            <div id="keyText">GENERATING...</div>
-            <button class="btn" onclick="copyKey()">Copy Key</button>
+
+    <!-- Header / Navbar -->
+    <header>
+        <div class="logo-container">
+            <span class="logo-icon">W</span> Vynixius
         </div>
-    </div>
+        <a href="#" class="btn-premium-nav">Buy Premium</a>
+    </header>
 
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Unlock Your <br><span class="text-green">True Potential</span></h1>
+        <p>The most advanced, secure, and feature-rich script hub for Roblox. Dominating the game has never been this easy.</p>
+        <div class="btn-group">
+            <a href="#" class="btn btn-outline">Get Script</a>
+            <a href="#" class="btn btn-solid">👑 Buy Premium</a>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section>
+        <h2 class="section-title">Why Choose <span class="text-green">Vynixius?</span></h2>
+        <p class="section-subtitle">
+            Experience the difference with our cutting-edge features designed for power users.<br>
+            <em style="color: var(--primary-green);">"Quality over quantity" is our promise.</em>
+        </p>
+
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-icon">🎮</div>
+                <h3>5+ Games Supported</h3>
+                <p>We support 6-7 popular games with custom scripts for each one.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">⭐</div>
+                <h3>Premium Quality</h3>
+                <p>Optimized, bug-free, and high-performance scripts written by experts.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🛡️</div>
+                <h3>Undetected</h3>
+                <p>Advanced bypass methods to keep your account safe from bans.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Provider Section -->
+    <section>
+        <h2 class="section-title">Select <span class="text-green">Key Provider</span></h2>
+        <p class="section-subtitle">
+            Choose your preferred method to obtain a key. All providers are secure and fast.
+        </p>
+
+        <a href="#" class="provider-box provider-workink">work.ink</a>
+        <a href="#" class="provider-box provider-linkvertise">Linkvertise</a>
+        <a href="#" class="provider-box provider-lootlabs">LootLabs</a>
+    </section>
+
+    <!-- Supported Executors -->
+    <section>
+        <h2 class="section-title">Supported <span class="text-green">Executors</span></h2>
+        <p class="section-subtitle">
+            Vynixius is built to be compatible with all major script executors.
+        </p>
+
+        <div class="grid-container">
+            <div class="card center-text">
+                <div class="executor-icon">💧</div>
+                <h3>Hydrogen</h3>
+            </div>
+            <div class="card center-text">
+                <div class="executor-icon">S</div>
+                <h3>Synapse Z</h3>
+            </div>
+            <div class="card center-text">
+                <div class="executor-icon">👿</div>
+                <h3>Delta</h3>
+            </div>
+            <div class="card center-text">
+                <div class="executor-icon">S</div>
+                <h3>Seliware</h3>
+            </div>
+        </div>
+        
+        <div class="note-box">
+            <p><strong>Note:</strong> If you don't see your exploit in this list, chances are it still works! Vynixius is designed to be universal.</p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section>
+        <h2 class="section-title">Frequently Asked <span class="text-green">Questions</span></h2>
+        
+        <div class="faq-item">
+            <button class="faq-question">How do I get whitelisted? <span class="icon">˅</span></button>
+            <div class="faq-answer"><p>You can get whitelisted by joining our Discord server and following the instructions in the #whitelist channel.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Where can I report bugs? <span class="icon">˅</span></button>
+            <div class="faq-answer"><p>Please report bugs in our Discord server under the #bug-reports channel.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Does this work on mobile? <span class="icon">˅</span></button>
+            <div class="faq-answer"><p>Yes, Vynixius is compatible with mobile executors like Delta and Hydrogen.</p></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">
+            <span class="logo-icon">W</span> Vynixius
+        </div>
+        <div class="footer-links">
+            <a href="#">Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Contact</a>
+        </div>
+        <p style="color: var(--text-muted); font-size: 12px;">&copy; 2024 Vynixius. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript for FAQ Dropdowns -->
     <script>
-        let time = 65;
-        const timerDisplay = document.getElementById('timer');
-        const keyBox = document.getElementById('key-box');
-        const keyText = document.getElementById('keyText');
+        const faqItems = document.querySelectorAll('.faq-question');
 
-        const countdown = setInterval(() => {
-            time--;
-            let m = Math.floor(time / 60);
-            let s = time % 60;
-            timerDisplay.innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
-
-            if (time <= 0) {
-                clearInterval(countdown);
-                timerDisplay.style.display = 'none';
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
                 
-                // MATH FORMULA (Must match Roblox script)
-                const d = new Date();
-                const seed = d.getFullYear() + (d.getMonth() + 1) + d.getDate();
-                const finalKey = "Bacon_" + (seed * 99);
-                
-                keyText.innerText = finalKey;
-                keyBox.style.display = 'block';
-            }
-        }, 1000);
-
-        function copyKey() {
-            navigator.clipboard.writeText(keyText.innerText);
-            alert("Key copied to clipboard!");
-        }
+                const icon = item.querySelector('.icon');
+                if(parent.classList.contains('active')){
+                    icon.textContent = '˄';
+                } else {
+                    icon.textContent = '˅';
+                }
+            });
+        });
     </script>
 </body>
 </html>
