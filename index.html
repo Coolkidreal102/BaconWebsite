@@ -1,196 +1,536 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BaconHub | Premium & Keyless Roblox Script Hub</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BaconHub | Ultimate Script Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --bg-dark: #0a0b0e;
-      --card-bg: #12141a;
-      --card-border: #1e222d;
-      --accent-green: #10b981;
-      --accent-green-glow: rgba(16, 185, 129, 0.35);
-      --loot-purple: #8b5cf6;
-      --loot-purple-glow: rgba(139, 92, 246, 0.35);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
+      --bg-dark: #08060e;
+      --card-bg: rgba(18, 14, 30, 0.65);
+      --card-border: rgba(147, 95, 255, 0.2);
+      --card-hover-border: rgba(168, 85, 247, 0.6);
+      --accent: #a855f7;
+      --accent-glow: rgba(168, 85, 247, 0.35);
+      --text-main: #f3f0fc;
+      --text-muted: #9c95b3;
+      --star-gold: #facc15;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; }
-    header { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2rem; border-bottom: 1px solid var(--card-border); position: sticky; top: 0; background: rgba(10, 11, 14, 0.9); backdrop-filter: blur(8px); z-index: 100; }
-    .brand { display: flex; align-items: center; gap: 0.75rem; font-size: 1.35rem; font-weight: 700; color: #fff; }
-    .brand i { color: var(--accent-green); }
-    .nav-btn { background: var(--accent-green); color: #000; font-weight: 700; border: none; padding: 0.6rem 1.25rem; border-radius: 999px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; transition: 0.2s; }
-    .nav-btn:hover { box-shadow: 0 0 15px var(--accent-green-glow); transform: translateY(-1px); }
-    .hero { text-align: center; padding: 4.5rem 1.5rem 3rem; max-width: 850px; margin: 0 auto; }
-    .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; }
-    .hero h1 span { color: var(--accent-green); text-shadow: 0 0 20px var(--accent-green-glow); }
-    .hero p { color: var(--text-muted); font-size: 1.15rem; margin-bottom: 2rem; }
-    .hero-actions { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
-    .btn-primary { background: var(--accent-green); color: #000; font-weight: 700; padding: 0.85rem 1.8rem; border-radius: 10px; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; transition: 0.2s; }
-    .btn-primary:hover { box-shadow: 0 0 20px var(--accent-green-glow); }
-    .btn-vip { background: #1f1b2e; color: #c084fc; border: 1px solid #7c3aed; font-weight: 700; padding: 0.85rem 1.8rem; border-radius: 10px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; transition: 0.2s; }
-    .btn-vip:hover { background: #2e2648; box-shadow: 0 0 20px var(--loot-purple-glow); }
-    .loader-box { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; text-align: left; }
-    .loader-box code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; color: #34d399; font-size: 0.95rem; overflow-x: auto; white-space: nowrap; }
-    .copy-btn { background: #1e222d; color: #fff; border: 1px solid #2d3343; padding: 0.55rem 1.1rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; }
-    .copy-btn:hover { background: #282e3d; }
-    section { padding: 4rem 1.5rem; max-width: 1050px; margin: 0 auto; }
-    .section-title { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 2.5rem; }
-    .section-title span { color: var(--accent-green); }
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 1.75rem; transition: transform 0.2s, border-color 0.2s; }
-    .card:hover { transform: translateY(-4px); border-color: #2d3446; }
-    .card-icon { width: 44px; height: 44px; border-radius: 10px; background: rgba(16, 185, 129, 0.1); color: var(--accent-green); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 1.2rem; }
-    .card h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
-    .card p { color: var(--text-muted); font-size: 0.95rem; }
-    .vip-banner { background: linear-gradient(145deg, #161224, #12141a); border: 1px solid #6b21a8; border-radius: 16px; padding: 2.5rem; display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap; }
-    .vip-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); padding: 0.35rem 0.8rem; border-radius: 999px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1rem; }
-    .vip-btn { background: var(--loot-purple); color: #fff; font-weight: 700; border: none; padding: 0.85rem 1.8rem; border-radius: 10px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; transition: 0.2s; }
-    .vip-btn:hover { box-shadow: 0 0 20px var(--loot-purple-glow); }
-    .executors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
-    .executor-badge { background: var(--card-bg); border: 1px solid var(--card-border); padding: 1.2rem; border-radius: 12px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; font-weight: 600; font-size: 1rem; }
-    .executor-badge i { font-size: 1.6rem; color: var(--accent-green); }
-    .faq-list { display: flex; flex-direction: column; gap: 1rem; max-width: 800px; margin: 0 auto; }
-    .faq-item { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; overflow: hidden; }
-    .faq-question { padding: 1.2rem 1.5rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; }
-    .faq-question i { color: var(--accent-green); transition: transform 0.2s; }
-    .faq-answer { padding: 0 1.5rem 1.2rem; color: var(--text-muted); font-size: 0.95rem; display: none; }
-    .faq-item.open .faq-answer { display: block; }
-    .faq-item.open .faq-question i { transform: rotate(180deg); }
-    footer { text-align: center; padding: 2.5rem 1.5rem; border-top: 1px solid var(--card-border); color: var(--text-muted); font-size: 0.9rem; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Ambient Background Glows */
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .glow-1 {
+      width: 500px;
+      height: 500px;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, rgba(0,0,0,0) 70%);
+    }
+
+    .glow-2 {
+      width: 450px;
+      height: 450px;
+      bottom: 25%;
+      right: 5%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(0,0,0,0) 70%);
+    }
+
+    .glow-3 {
+      width: 400px;
+      height: 400px;
+      top: 55%;
+      left: 5%;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(0,0,0,0) 70%);
+    }
+
+    /* Navbar */
+    header {
+      width: 100%;
+      max-width: 1100px;
+      padding: 24px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo span {
+      background: linear-gradient(135deg, #c084fc, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid var(--accent);
+      color: #d8b4fe;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    /* Main Container */
+    main {
+      width: 100%;
+      max-width: 960px;
+      padding: 40px 20px 80px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero-tag {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: #c084fc;
+      margin-bottom: 14px;
+      padding: 6px 14px;
+      background: rgba(168, 85, 247, 0.08);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 30px;
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 18px;
+      letter-spacing: -1.2px;
+    }
+
+    h1 span {
+      background: linear-gradient(135deg, #fff 40%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    /* Script Loader Box */
+    .script-box {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 50px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .script-box:hover {
+      border-color: var(--card-hover-border);
+      box-shadow: 0 10px 40px var(--accent-glow);
+    }
+
+    .script-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      color: #e0d7fe;
+      white-space: nowrap;
+      overflow-x: auto;
+      text-align: left;
+      padding: 4px 0;
+    }
+
+    .copy-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.1s;
+      flex-shrink: 0;
+    }
+
+    .copy-btn:hover {
+      background: #9333ea;
+      transform: translateY(-1px);
+    }
+
+    .copy-btn:active {
+      transform: translateY(1px);
+    }
+
+    /* Feature Grid */
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      margin-top: 20px;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 70px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      border-radius: 14px;
+      padding: 22px;
+      transition: all 0.25s ease;
+    }
+
+    .feature-card:hover {
+      border-color: var(--card-hover-border);
+      transform: translateY(-3px);
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      color: #c084fc;
+      font-size: 1.2rem;
+    }
+
+    .feature-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .feature-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Reviews Section */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .review-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(14px);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .review-card:hover {
+      border-color: var(--card-hover-border);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .av-1 { background: linear-gradient(135deg, #a855f7, #6366f1); }
+    .av-2 { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
+    .av-3 { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .verified-tag {
+      font-size: 0.68rem;
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 1px 6px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .user-handle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .stars {
+      color: var(--star-gold);
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+
+    .review-body {
+      font-size: 0.92rem;
+      color: #d1cbe5;
+      line-height: 1.55;
+      font-style: italic;
+    }
+
+    .review-footer {
+      margin-top: 16px;
+      font-size: 0.78rem;
+      color: #797291;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: auto;
+      padding: 30px 20px;
+      font-size: 0.85rem;
+      color: #6d6682;
+      z-index: 10;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      h1 { font-size: 2.3rem; }
+      .script-box { flex-direction: column; align-items: stretch; }
+      .copy-btn { justify-content: center; }
+    }
   </style>
 </head>
 <body>
 
+  <!-- Ambient Glow Orbs -->
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+  <div class="glow-orb glow-3"></div>
+
+  <!-- Header -->
   <header>
-    <div class="brand">
-      <i class="fa-solid fa-bacon"></i> BaconHub
+    <div class="logo">
+      <span>BACON</span>HUB
     </div>
-    <a href="#lootlabs" class="nav-btn">
-      <i class="fa-solid fa-crown"></i> Get VIP
-    </a>
+    <div class="badge">v2.4 DOORS</div>
   </header>
 
-  <div class="hero">
-    <h1>Dominate Every Game with <span>BaconHub</span></h1>
-    <p>A fast, clean, and reliable script suite for Roblox. No confusing link shorteners for standard features—just clean execution.</p>
-    
-    <div class="hero-actions">
-      <a href="#script" class="btn-primary"><i class="fa-solid fa-code"></i> Get Free Script</a>
-      <a href="#lootlabs" class="btn-vip"><i class="fa-solid fa-bolt"></i> LootLabs VIP Key</a>
-    </div>
+  <!-- Hero Content -->
+  <main>
+    <div class="hero-tag">LIGHTWEIGHT & SECURE</div>
+    <h1>Built for <span>Doors</span>.<br>Refined for performance.</h1>
+    <p class="subtitle">Experience modular entity automation, seamless spatial awareness, and full visual control inside a unified Fluent interface.</p>
 
-    <div class="loader-box" id="script">
-      <code>loadstring(game:HttpGet("https://raw.githubusercontent.com/BaconHub/Main/main/loader.lua"))()</code>
-      <button class="copy-btn" onclick="copyLoader(this)">
-        <i class="fa-regular fa-copy"></i> Copy
+    <!-- Script Copy Card -->
+    <div class="script-box">
+      <div class="script-code" id="scriptText">loadstring(game:HttpGet("https://raw.githubusercontent.com/YourRepo/BaconHub/main/source.lua"))()</div>
+      <button class="copy-btn" onclick="copyScript()">
+        <span id="btnIcon">📋</span> <span id="btnLabel">Copy Script</span>
       </button>
     </div>
-  </div>
 
-  <section>
-    <div class="section-title">Why Choose <span>BaconHub</span>?</div>
+    <!-- Feature Highlights -->
+    <h2 class="section-title">Core Modules</h2>
+    <p class="section-desc">Clean, optimized automation built with zero bloat.</p>
     <div class="features-grid">
-      <div class="card">
-        <div class="card-icon"><i class="fa-solid fa-unlock-keyhole"></i></div>
-        <h3>100% Keyless Free Edition</h3>
-        <p>No Work.ink, no Linkvertise, and no infinite ad loops. Execute and jump straight into your game.</p>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <div class="feature-title">Smart Godmode</div>
+        <div class="feature-desc">Automated -6 stud RootJoint offset triggered only during lethal entity presence (Rush, Ambush, Figure).</div>
       </div>
-      <div class="card">
-        <div class="card-icon"><i class="fa-solid fa-bolt"></i></div>
-        <h3>Instant Injection</h3>
-        <p>Lightweight architecture built to prevent stuttering, lag spikes, or FPS drops upon execution.</p>
+      <div class="feature-card">
+        <div class="feature-icon">👁️</div>
+        <div class="feature-title">Legit Entity Disarm</div>
+        <div class="feature-desc">Auto-satisfies Screech & Eyes checks without deleting models or throwing runtime script errors.</div>
       </div>
-      <div class="card">
-        <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
-        <h3>Undetected & Secure</h3>
-        <p>Integrated anti-detection layer that bypasses client-side monitoring and ban triggers cleanly.</p>
+      <div class="feature-card">
+        <div class="feature-icon">🌿</div>
+        <div class="feature-title">No-Stick Snare</div>
+        <div class="feature-desc">Floor traps remain visible in the Greenhouse while disabling collision and anchor hitboxes.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💡</div>
+        <div class="feature-title">Ambient Fullbright</div>
+        <div class="feature-desc">Smooth lighting override providing clean visibility through dark rooms without crashing shaders.</div>
       </div>
     </div>
-  </section>
 
-  <section id="lootlabs">
-    <div class="vip-banner">
-      <div>
-        <div class="vip-badge"><i class="fa-solid fa-star"></i> LootLabs Secured</div>
-        <h2>Upgrade to BaconHub VIP</h2>
-        <p style="color: #9ca3af; margin-top: 0.5rem; max-width: 520px;">
-          Unlock private early-access scripts, auto-prediction aimbots, and Luarmor-backed bypass security via our LootLabs key checkpoint.
-        </p>
+    <!-- Community Reviews Section -->
+    <h2 class="section-title">What Users Are Saying</h2>
+    <p class="section-desc">Feedback from the community running BaconHub.</p>
+    
+    <div class="reviews-grid">
+      <!-- Review 1 -->
+      <div class="review-card">
+        <div>
+          <div class="review-header">
+            <div class="avatar av-1">X</div>
+            <div class="user-info">
+              <div class="user-name">xX_BaconLord_Xx <span class="verified-tag">✓ Verified</span></div>
+              <div class="user-handle">@baconlord • Discord</div>
+            </div>
+          </div>
+          <div class="stars">★★★★★</div>
+          <div class="review-body">
+            "The smart godmode is actually insane. Rush pulled up in room 45 and I didn't even have to hop into a closet. Smooth offset and zero rubberbanding."
+          </div>
+        </div>
+        <div class="review-footer">Reviewed 2 days ago • Doors v2.4</div>
       </div>
-      <a href="https://loot-link.com" target="_blank" class="vip-btn">
-        <i class="fa-solid fa-key"></i> Get VIP Key (LootLabs)
-      </a>
-    </div>
-  </section>
 
-  <section>
-    <div class="section-title">Supported <span>Executors</span></div>
-    <div class="executors-grid">
-      <div class="executor-badge"><i class="fa-solid fa-droplet"></i> Hydrogen</div>
-      <div class="executor-badge"><i class="fa-solid fa-shield-virus"></i> Delta</div>
-      <div class="executor-badge"><i class="fa-solid fa-terminal"></i> Synapse Z</div>
-      <div class="executor-badge"><i class="fa-solid fa-cube"></i> Seliware</div>
-      <div class="executor-badge"><i class="fa-solid fa-mobile-screen"></i> Codex</div>
-      <div class="executor-badge"><i class="fa-solid fa-laptop-code"></i> Wave</div>
-    </div>
-  </section>
+      <!-- Review 2 -->
+      <div class="review-card">
+        <div>
+          <div class="review-header">
+            <div class="avatar av-2">N</div>
+            <div class="user-info">
+              <div class="user-name">NovaStatic <span class="verified-tag">✓ Verified</span></div>
+              <div class="user-handle">@novastatic • Tester</div>
+            </div>
+          </div>
+          <div class="stars">★★★★★</div>
+          <div class="review-body">
+            "Best looking UI hands down. Fluent integration is buttery smooth and the legit snare bypass makes greenhouse rooms a walk in the park."
+          </div>
+        </div>
+        <div class="review-footer">Reviewed 4 days ago • Doors v2.4</div>
+      </div>
 
-  <section>
-    <div class="section-title">Frequently Asked <span>Questions</span></div>
-    <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFaq(this)">
-          Is the standard version completely free?
-          <i class="fa-solid fa-chevron-down"></i>
+      <!-- Review 3 -->
+      <div class="review-card">
+        <div>
+          <div class="review-header">
+            <div class="avatar av-3">C</div>
+            <div class="user-info">
+              <div class="user-name">Cipher_Dev <span class="verified-tag">✓ Verified</span></div>
+              <div class="user-handle">@cipherr • Member</div>
+            </div>
+          </div>
+          <div class="stars">★★★★★</div>
+          <div class="review-body">
+            "Clean loadstring, no sketchy link shorteners, and the website looks cleaner than most paid hubs. Solid work on the dark glass theme!"
+          </div>
         </div>
-        <div class="faq-answer">
-          Yes! The standard version requires no keys, no Linkvertise, and no Work.ink links.
-        </div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFaq(this)">
-          How does the LootLabs VIP key work?
-          <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="faq-answer">
-          You complete the quick LootLabs checkpoint, receive an encrypted VIP key, and paste it into the loader for exclusive access.
-        </div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question" onclick="toggleFaq(this)">
-          Does BaconHub work on Android mobile?
-          <i class="fa-solid fa-chevron-down"></i>
-        </div>
-        <div class="faq-answer">
-          Yes, BaconHub is fully optimized for mobile touch controls and supports Hydrogen, Delta, and Codex.
-        </div>
+        <div class="review-footer">Reviewed 1 week ago • Doors v2.4</div>
       </div>
     </div>
-  </section>
+
+  </main>
 
   <footer>
-    <p>&copy; 2026 BaconHub. Created for gamers, powered by performance.</p>
+    &copy; 2026 BaconHub. Built for educational and interface demonstration purposes.
   </footer>
 
   <script>
-    function copyLoader(btn) {
-      const code = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/BaconHub/Main/main/loader.lua"))()';
-      navigator.clipboard.writeText(code);
-      const originalText = btn.innerHTML;
-      btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-      setTimeout(() => { btn.innerHTML = originalText; }, 2000);
-    }
-
-    function toggleFaq(header) {
-      const parent = header.parentElement;
-      parent.classList.toggle('open');
+    function copyScript() {
+      const code = document.getElementById("scriptText").innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        const label = document.getElementById("btnLabel");
+        const icon = document.getElementById("btnIcon");
+        label.innerText = "Copied!";
+        icon.innerText = "✓";
+        setTimeout(() => {
+          label.innerText = "Copy Script";
+          icon.innerText = "📋";
+        }, 2000);
+      });
     }
   </script>
 </body>
 </html>
-
-    
