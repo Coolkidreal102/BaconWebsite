@@ -1,536 +1,526 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BaconHub | Ultimate Script Suite</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-dark: #08060e;
-      --card-bg: rgba(18, 14, 30, 0.65);
-      --card-border: rgba(147, 95, 255, 0.2);
-      --card-hover-border: rgba(168, 85, 247, 0.6);
-      --accent: #a855f7;
-      --accent-glow: rgba(168, 85, 247, 0.35);
-      --text-main: #f3f0fc;
-      --text-muted: #9c95b3;
-      --star-gold: #facc15;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      min-height: 100vh;
-      overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-    }
-
-    /* Ambient Background Glows */
-    .glow-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(140px);
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .glow-1 {
-      width: 500px;
-      height: 500px;
-      top: -100px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, rgba(0,0,0,0) 70%);
-    }
-
-    .glow-2 {
-      width: 450px;
-      height: 450px;
-      bottom: 25%;
-      right: 5%;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(0,0,0,0) 70%);
-    }
-
-    .glow-3 {
-      width: 400px;
-      height: 400px;
-      top: 55%;
-      left: 5%;
-      background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, rgba(0,0,0,0) 70%);
-    }
-
-    /* Navbar */
-    header {
-      width: 100%;
-      max-width: 1100px;
-      padding: 24px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 10;
-    }
-
-    .logo {
-      font-size: 1.35rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo span {
-      background: linear-gradient(135deg, #c084fc, #a855f7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .badge {
-      font-size: 0.72rem;
-      background: rgba(168, 85, 247, 0.15);
-      border: 1px solid var(--accent);
-      color: #d8b4fe;
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-weight: 600;
-    }
-
-    /* Main Container */
-    main {
-      width: 100%;
-      max-width: 960px;
-      padding: 40px 20px 80px;
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .hero-tag {
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: #c084fc;
-      margin-bottom: 14px;
-      padding: 6px 14px;
-      background: rgba(168, 85, 247, 0.08);
-      border: 1px solid rgba(168, 85, 247, 0.3);
-      border-radius: 30px;
-    }
-
-    h1 {
-      font-size: 3.2rem;
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 18px;
-      letter-spacing: -1.2px;
-    }
-
-    h1 span {
-      background: linear-gradient(135deg, #fff 40%, #c084fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    p.subtitle {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      max-width: 620px;
-      margin-bottom: 36px;
-      line-height: 1.6;
-    }
-
-    /* Script Loader Box */
-    .script-box {
-      width: 100%;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(16px);
-      border-radius: 16px;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 50px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .script-box:hover {
-      border-color: var(--card-hover-border);
-      box-shadow: 0 10px 40px var(--accent-glow);
-    }
-
-    .script-code {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.95rem;
-      color: #e0d7fe;
-      white-space: nowrap;
-      overflow-x: auto;
-      text-align: left;
-      padding: 4px 0;
-    }
-
-    .copy-btn {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      font-weight: 600;
-      padding: 10px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: background 0.2s, transform 0.1s;
-      flex-shrink: 0;
-    }
-
-    .copy-btn:hover {
-      background: #9333ea;
-      transform: translateY(-1px);
-    }
-
-    .copy-btn:active {
-      transform: translateY(1px);
-    }
-
-    /* Feature Grid */
-    .section-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-bottom: 8px;
-      margin-top: 20px;
-    }
-
-    .section-desc {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 24px;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      width: 100%;
-      text-align: left;
-      margin-bottom: 70px;
-    }
-
-    .feature-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(12px);
-      border-radius: 14px;
-      padding: 22px;
-      transition: all 0.25s ease;
-    }
-
-    .feature-card:hover {
-      border-color: var(--card-hover-border);
-      transform: translateY(-3px);
-    }
-
-    .feature-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: rgba(168, 85, 247, 0.15);
-      border: 1px solid rgba(168, 85, 247, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-      color: #c084fc;
-      font-size: 1.2rem;
-    }
-
-    .feature-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: #fff;
-    }
-
-    .feature-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    /* Reviews Section */
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      width: 100%;
-      text-align: left;
-    }
-
-    .review-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(14px);
-      border-radius: 16px;
-      padding: 24px;
-      transition: all 0.25s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .review-card:hover {
-      border-color: var(--card-hover-border);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    }
-
-    .review-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .avatar {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: #fff;
-      border: 2px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .av-1 { background: linear-gradient(135deg, #a855f7, #6366f1); }
-    .av-2 { background: linear-gradient(135deg, #ec4899, #8b5cf6); }
-    .av-3 { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
-
-    .user-info {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .user-name {
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .verified-tag {
-      font-size: 0.68rem;
-      background: rgba(34, 197, 94, 0.15);
-      color: #4ade80;
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      padding: 1px 6px;
-      border-radius: 8px;
-      font-weight: 600;
-    }
-
-    .user-handle {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .stars {
-      color: var(--star-gold);
-      font-size: 0.9rem;
-      margin-bottom: 12px;
-      letter-spacing: 2px;
-    }
-
-    .review-body {
-      font-size: 0.92rem;
-      color: #d1cbe5;
-      line-height: 1.55;
-      font-style: italic;
-    }
-
-    .review-footer {
-      margin-top: 16px;
-      font-size: 0.78rem;
-      color: #797291;
-    }
-
-    /* Footer */
-    footer {
-      margin-top: auto;
-      padding: 30px 20px;
-      font-size: 0.85rem;
-      color: #6d6682;
-      z-index: 10;
-      text-align: center;
-    }
-
-    /* Responsive */
-    @media (max-width: 640px) {
-      h1 { font-size: 2.3rem; }
-      .script-box { flex-direction: column; align-items: stretch; }
-      .copy-btn { justify-content: center; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BaconHub - The Ultimate Roblox Script Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0b0f0c',
+                        cardBg: '#121814',
+                        cardBorder: '#1e2820',
+                        brandGreen: '#00ff66',
+                        brandGreenHover: '#00cc52',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #0b0f0c;
+            color: #e5e7eb;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        /* Custom glowing effects */
+        .glow-text {
+            text-shadow: 0 0 25px rgba(0, 255, 102, 0.4);
+        }
+        .glow-box {
+            box-shadow: 0 0 30px rgba(0, 255, 102, 0.15);
+        }
+        /* Glass Navbar */
+        .glass-nav {
+            background: rgba(12, 18, 14, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 155, 0.08);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f0c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e2820;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00ff66;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-darkBg text-gray-100 min-h-screen flex flex-col justify-between">
 
-  <!-- Ambient Glow Orbs -->
-  <div class="glow-orb glow-1"></div>
-  <div class="glow-orb glow-2"></div>
-  <div class="glow-orb glow-3"></div>
-
-  <!-- Header -->
-  <header>
-    <div class="logo">
-      <span>BACON</span>HUB
-    </div>
-    <div class="badge">v2.4 DOORS</div>
-  </header>
-
-  <!-- Hero Content -->
-  <main>
-    <div class="hero-tag">LIGHTWEIGHT & SECURE</div>
-    <h1>Built for <span>Doors</span>.<br>Refined for performance.</h1>
-    <p class="subtitle">Experience modular entity automation, seamless spatial awareness, and full visual control inside a unified Fluent interface.</p>
-
-    <!-- Script Copy Card -->
-    <div class="script-box">
-      <div class="script-code" id="scriptText">loadstring(game:HttpGet("https://raw.githubusercontent.com/YourRepo/BaconHub/main/source.lua"))()</div>
-      <button class="copy-btn" onclick="copyScript()">
-        <span id="btnIcon">📋</span> <span id="btnLabel">Copy Script</span>
-      </button>
-    </div>
-
-    <!-- Feature Highlights -->
-    <h2 class="section-title">Core Modules</h2>
-    <p class="section-desc">Clean, optimized automation built with zero bloat.</p>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">🛡️</div>
-        <div class="feature-title">Smart Godmode</div>
-        <div class="feature-desc">Automated -6 stud RootJoint offset triggered only during lethal entity presence (Rush, Ambush, Figure).</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">👁️</div>
-        <div class="feature-title">Legit Entity Disarm</div>
-        <div class="feature-desc">Auto-satisfies Screech & Eyes checks without deleting models or throwing runtime script errors.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🌿</div>
-        <div class="feature-title">No-Stick Snare</div>
-        <div class="feature-desc">Floor traps remain visible in the Greenhouse while disabling collision and anchor hitboxes.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">💡</div>
-        <div class="feature-title">Ambient Fullbright</div>
-        <div class="feature-desc">Smooth lighting override providing clean visibility through dark rooms without crashing shaders.</div>
-      </div>
-    </div>
-
-    <!-- Community Reviews Section -->
-    <h2 class="section-title">What Users Are Saying</h2>
-    <p class="section-desc">Feedback from the community running BaconHub.</p>
-    
-    <div class="reviews-grid">
-      <!-- Review 1 -->
-      <div class="review-card">
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-cardBg border border-brandGreen text-white px-6 py-3 rounded-xl shadow-2xl flex items-center space-x-3">
+        <i class="fa-solid fa-circle-check text-brandGreen text-xl"></i>
         <div>
-          <div class="review-header">
-            <div class="avatar av-1">X</div>
-            <div class="user-info">
-              <div class="user-name">xX_BaconLord_Xx <span class="verified-tag">✓ Verified</span></div>
-              <div class="user-handle">@baconlord • Discord</div>
-            </div>
-          </div>
-          <div class="stars">★★★★★</div>
-          <div class="review-body">
-            "The smart godmode is actually insane. Rush pulled up in room 45 and I didn't even have to hop into a closet. Smooth offset and zero rubberbanding."
-          </div>
+            <p class="font-bold text-sm">Copied to Clipboard!</p>
+            <p class="text-xs text-gray-400">Loadstring is ready to execute.</p>
         </div>
-        <div class="review-footer">Reviewed 2 days ago • Doors v2.4</div>
-      </div>
-
-      <!-- Review 2 -->
-      <div class="review-card">
-        <div>
-          <div class="review-header">
-            <div class="avatar av-2">N</div>
-            <div class="user-info">
-              <div class="user-name">NovaStatic <span class="verified-tag">✓ Verified</span></div>
-              <div class="user-handle">@novastatic • Tester</div>
-            </div>
-          </div>
-          <div class="stars">★★★★★</div>
-          <div class="review-body">
-            "Best looking UI hands down. Fluent integration is buttery smooth and the legit snare bypass makes greenhouse rooms a walk in the park."
-          </div>
-        </div>
-        <div class="review-footer">Reviewed 4 days ago • Doors v2.4</div>
-      </div>
-
-      <!-- Review 3 -->
-      <div class="review-card">
-        <div>
-          <div class="review-header">
-            <div class="avatar av-3">C</div>
-            <div class="user-info">
-              <div class="user-name">Cipher_Dev <span class="verified-tag">✓ Verified</span></div>
-              <div class="user-handle">@cipherr • Member</div>
-            </div>
-          </div>
-          <div class="stars">★★★★★</div>
-          <div class="review-body">
-            "Clean loadstring, no sketchy link shorteners, and the website looks cleaner than most paid hubs. Solid work on the dark glass theme!"
-          </div>
-        </div>
-        <div class="review-footer">Reviewed 1 week ago • Doors v2.4</div>
-      </div>
     </div>
 
-  </main>
+    <!-- Navigation Bar -->
+    <header class="fixed top-4 left-0 right-0 z-40 flex justify-center px-4">
+        <nav class="glass-nav rounded-full px-6 py-3 flex items-center justify-between w-full max-w-5xl shadow-2xl">
+            <!-- Logo -->
+            <a href="#" class="flex items-center space-x-2.5 group">
+                <div class="w-8 h-8 rounded-lg bg-brandGreen/20 border border-brandGreen/40 flex items-center justify-center text-brandGreen group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-b text-lg"></i>
+                </div>
+                <span class="font-extrabold text-lg tracking-wide text-white">BaconHub</span>
+            </a>
 
-  <footer>
-    &copy; 2026 BaconHub. Built for educational and interface demonstration purposes.
-  </footer>
+            <!-- Nav Links -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
+                <a href="#features" class="hover:text-brandGreen transition-colors">Features</a>
+                <a href="#games" class="hover:text-brandGreen transition-colors">Games</a>
+                <a href="#reviews" class="hover:text-brandGreen transition-colors">Reviews</a>
+                <a href="#exploits" class="hover:text-brandGreen transition-colors">Exploits</a>
+                <a href="#faq" class="hover:text-brandGreen transition-colors">FAQ</a>
+            </div>
 
-  <script>
-    function copyScript() {
-      const code = document.getElementById("scriptText").innerText;
-      navigator.clipboard.writeText(code).then(() => {
-        const label = document.getElementById("btnLabel");
-        const icon = document.getElementById("btnIcon");
-        label.innerText = "Copied!";
-        icon.innerText = "✓";
-        setTimeout(() => {
-          label.innerText = "Copy Script";
-          icon.innerText = "📋";
-        }, 2000);
-      });
-    }
-  </script>
+            <!-- Buy Premium Button -->
+            <a href="#premium" class="bg-brandGreen hover:bg-brandGreenHover text-darkBg font-bold px-5 py-2 rounded-full text-sm transition-all shadow-lg hover:shadow-brandGreen/30 transform hover:-translate-y-0.5">
+                Buy Premium
+            </a>
+        </nav>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow pt-32">
+
+        <!-- Hero Section -->
+        <section class="relative py-20 px-4 text-center max-w-5xl mx-auto flex flex-col items-center">
+            <!-- Background ambient glow -->
+            <div class="absolute w-96 h-96 bg-brandGreen/10 rounded-full blur-3xl -top-10 pointer-events-none"></div>
+
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
+                Unlock Your <span class="text-brandGreen glow-text">True Potential</span>
+            </h1>
+            <p class="text-gray-400 max-w-2xl text-base md:text-lg mb-10">
+                The most advanced, secure, and feature-rich script hub for Roblox. Dominating the game has never been this easy.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md">
+                <button onclick="copyScript()" class="w-full sm:w-auto bg-brandGreen hover:bg-brandGreenHover text-darkBg font-extrabold px-8 py-3.5 rounded-xl transition-all shadow-lg hover:shadow-brandGreen/30 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-terminal"></i>
+                    <span>Get Script</span>
+                </button>
+                <a href="#premium" class="w-full sm:w-auto bg-cardBg hover:bg-cardBorder border border-cardBorder hover:border-brandGreen/40 text-white font-semibold px-8 py-3.5 rounded-xl transition-all flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-crown text-brandGreen"></i>
+                    <span>Buy Premium</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section id="features" class="py-20 px-4 max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-extrabold text-white mb-3">Why Choose <span class="text-brandGreen">BaconHub</span>?</h2>
+                <p class="text-gray-400 text-sm md:text-base">Experience the difference with our cutting-edge features designed for power users.</p>
+                <p class="text-brandGreen text-sm font-semibold mt-1">"Quality over quantity" is our promise.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Feature 1 -->
+                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-brandGreen/40 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-brandGreen/10 border border-brandGreen/30 flex items-center justify-center text-brandGreen mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-gamepad text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">5+ Games Supported</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">We support 6-7 popular games with custom tailored scripts for each one.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-brandGreen/40 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-brandGreen/10 border border-brandGreen/30 flex items-center justify-center text-brandGreen mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-clock text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">24/7 Support</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Our team is always online to help you with any issues you might encounter.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-brandGreen/40 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-brandGreen/10 border border-brandGreen/30 flex items-center justify-center text-brandGreen mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-star text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Premium Quality</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Optimized, bug-free, and high-performance scripts written by experts.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-brandGreen/40 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-brandGreen/10 border border-brandGreen/30 flex items-center justify-center text-brandGreen mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-shield-halved text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Undetected</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Advanced bypass methods to keep your account safe from bans.</p>
+                </div>
+                <!-- Feature 5 -->
+                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-brandGreen/40 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-brandGreen/10 border border-brandGreen/30 flex items-center justify-center text-brandGreen mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-bolt text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Fast Execution</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Lightning-fast script injection with minimal lag. Optimized for performance.</p>
+                </div>
+                <!-- Feature 6 -->
+                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-brandGreen/40 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-brandGreen/10 border border-brandGreen/30 flex items-center justify-center text-brandGreen mb-5 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-key text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Key System</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Secure and easy-to-use key system for free users.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Supported Games Section -->
+        <section id="games" class="py-20 px-4 max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-white mb-3">Supported <span class="text-brandGreen">Games</span></h2>
+                <p class="text-gray-400 text-sm md:text-base mb-6">Explore the games currently supported by BaconHub.</p>
+                
+                <!-- Category Filter Buttons -->
+                <div id="filter-container" class="flex flex-wrap justify-center gap-2">
+                    <button onclick="filterGames('all')" class="filter-btn bg-brandGreen text-darkBg font-bold px-4 py-1.5 rounded-full text-xs transition-all">All</button>
+                    <button onclick="filterGames('Survival')" class="filter-btn bg-cardBg border border-cardBorder text-gray-300 hover:text-white font-medium px-4 py-1.5 rounded-full text-xs transition-all">Survival</button>
+                    <button onclick="filterGames('Simulation')" class="filter-btn bg-cardBg border border-cardBorder text-gray-300 hover:text-white font-medium px-4 py-1.5 rounded-full text-xs transition-all">Simulation</button>
+                    <button onclick="filterGames('Action')" class="filter-btn bg-cardBg border border-cardBorder text-gray-300 hover:text-white font-medium px-4 py-1.5 rounded-full text-xs transition-all">Action</button>
+                    <button onclick="filterGames('Platformer')" class="filter-btn bg-cardBg border border-cardBorder text-gray-300 hover:text-white font-medium px-4 py-1.5 rounded-full text-xs transition-all">Platformer</button>
+                </div>
+            </div>
+
+            <!-- Games Grid -->
+            <div id="games-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Game 1 -->
+                <div class="game-card bg-cardBg border border-cardBorder rounded-2xl overflow-hidden hover:border-brandGreen/40 transition-all flex flex-col" data-category="Survival">
+                    <div class="h-40 bg-gradient-to-br from-purple-900/40 to-black relative flex items-center justify-center p-4">
+                        <span class="absolute top-3 right-3 bg-brandGreen/20 border border-brandGreen/40 text-brandGreen text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brandGreen animate-pulse"></span>
+                            <span>Working</span>
+                        </span>
+                        <h4 class="text-xl font-extrabold text-white tracking-wide">Doors</h4>
+                    </div>
+                    <div class="p-5 flex items-center justify-between border-t border-cardBorder">
+                        <span class="text-sm font-semibold text-white">Doors</span>
+                        <span class="text-xs bg-darkBg border border-cardBorder text-gray-400 px-3 py-1 rounded-full">Survival</span>
+                    </div>
+                </div>
+
+                <!-- Game 2 -->
+                <div class="game-card bg-cardBg border border-cardBorder rounded-2xl overflow-hidden hover:border-brandGreen/40 transition-all flex flex-col" data-category="Action">
+                    <div class="h-40 bg-gradient-to-br from-blue-900/40 to-black relative flex items-center justify-center p-4">
+                        <span class="absolute top-3 right-3 bg-brandGreen/20 border border-brandGreen/40 text-brandGreen text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brandGreen animate-pulse"></span>
+                            <span>Working</span>
+                        </span>
+                        <h4 class="text-xl font-extrabold text-white tracking-wide">Jailbreak</h4>
+                    </div>
+                    <div class="p-5 flex items-center justify-between border-t border-cardBorder">
+                        <span class="text-sm font-semibold text-white">Jailbreak</span>
+                        <span class="text-xs bg-darkBg border border-cardBorder text-gray-400 px-3 py-1 rounded-full">Action</span>
+                    </div>
+                </div>
+
+                <!-- Game 3 -->
+                <div class="game-card bg-cardBg border border-cardBorder rounded-2xl overflow-hidden hover:border-brandGreen/40 transition-all flex flex-col" data-category="Survival">
+                    <div class="h-40 bg-gradient-to-br from-red-900/40 to-black relative flex items-center justify-center p-4">
+                        <span class="absolute top-3 right-3 bg-brandGreen/20 border border-brandGreen/40 text-brandGreen text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brandGreen animate-pulse"></span>
+                            <span>Working</span>
+                        </span>
+                        <h4 class="text-xl font-extrabold text-white tracking-wide">Bite By Night</h4>
+                    </div>
+                    <div class="p-5 flex items-center justify-between border-t border-cardBorder">
+                        <span class="text-sm font-semibold text-white">Bite By Night</span>
+                        <span class="text-xs bg-darkBg border border-cardBorder text-gray-400 px-3 py-1 rounded-full">Survival / Action</span>
+                    </div>
+                </div>
+
+                <!-- Game 4 -->
+                <div class="game-card bg-cardBg border border-cardBorder rounded-2xl overflow-hidden hover:border-brandGreen/40 transition-all flex flex-col" data-category="Survival">
+                    <div class="h-40 bg-gradient-to-br from-amber-900/40 to-black relative flex items-center justify-center p-4">
+                        <span class="absolute top-3 right-3 bg-brandGreen/20 border border-brandGreen/40 text-brandGreen text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brandGreen animate-pulse"></span>
+                            <span>Working</span>
+                        </span>
+                        <h4 class="text-xl font-extrabold text-white tracking-wide">Piggy</h4>
+                    </div>
+                    <div class="p-5 flex items-center justify-between border-t border-cardBorder">
+                        <span class="text-sm font-semibold text-white">Piggy</span>
+                        <span class="text-xs bg-darkBg border border-cardBorder text-gray-400 px-3 py-1 rounded-full">Survival</span>
+                    </div>
+                </div>
+
+                <!-- Game 5 -->
+                <div class="game-card bg-cardBg border border-cardBorder rounded-2xl overflow-hidden hover:border-brandGreen/40 transition-all flex flex-col" data-category="Platformer">
+                    <div class="h-40 bg-gradient-to-br from-pink-900/40 to-black relative flex items-center justify-center p-4">
+                        <span class="absolute top-3 right-3 bg-brandGreen/20 border border-brandGreen/40 text-brandGreen text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brandGreen animate-pulse"></span>
+                            <span>Working</span>
+                        </span>
+                        <h4 class="text-xl font-extrabold text-white tracking-wide">Tower Of Hell</h4>
+                    </div>
+                    <div class="p-5 flex items-center justify-between border-t border-cardBorder">
+                        <span class="text-sm font-semibold text-white">Tower Of Hell</span>
+                        <span class="text-xs bg-darkBg border border-cardBorder text-gray-400 px-3 py-1 rounded-full">Platformer</span>
+                    </div>
+                </div>
+
+                <!-- Game 6 -->
+                <div class="game-card bg-cardBg border border-cardBorder rounded-2xl overflow-hidden hover:border-brandGreen/40 transition-all flex flex-col" data-category="Simulation">
+                    <div class="h-40 bg-gradient-to-br from-emerald-900/40 to-black relative flex items-center justify-center p-4">
+                        <span class="absolute top-3 right-3 bg-brandGreen/20 border border-brandGreen/40 text-brandGreen text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brandGreen animate-pulse"></span>
+                            <span>Working</span>
+                        </span>
+                        <h4 class="text-xl font-extrabold text-white tracking-wide">Build A Boat</h4>
+                    </div>
+                    <div class="p-5 flex items-center justify-between border-t border-cardBorder">
+                        <span class="text-sm font-semibold text-white">Build A Boat For Treasure</span>
+                        <span class="text-xs bg-darkBg border border-cardBorder text-gray-400 px-3 py-1 rounded-full">Simulation</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What Users Say (Reviews) Section -->
+        <section id="reviews" class="py-20 px-4 max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-extrabold text-white mb-3">What Users <span class="text-brandGreen">Say</span></h2>
+                <p class="text-gray-400 text-sm md:text-base">Real feedback from our community members.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Review 1 -->
+                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-brandGreen/20 border border-brandGreen/40 flex items-center justify-center text-brandGreen font-bold">C</div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white">Cure</h4>
+                                    <p class="text-xs text-gray-400">@imnotcure</p>
+                                </div>
+                            </div>
+                            <span class="text-brandGreen text-sm font-bold">5/5</span>
+                        </div>
+                        <p class="text-gray-300 text-sm leading-relaxed">"A nicely well put together script for popular games. I would highly recommend it if you want a simple clean gui to work with."</p>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-brandGreen/20 border border-brandGreen/40 flex items-center justify-center text-brandGreen font-bold">K</div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white">Kedru</h4>
+                                    <p class="text-xs text-gray-400">@kedru</p>
+                                </div>
+                            </div>
+                            <span class="text-brandGreen text-sm font-bold">5/5</span>
+                        </div>
+                        <p class="text-gray-300 text-sm leading-relaxed">"Had some really funny moments with friends with this script. Performance is super smooth."</p>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-brandGreen/20 border border-brandGreen/40 flex items-center justify-center text-brandGreen font-bold">F</div>
+                                <div>
+                                    <h4 class="text-sm font-bold text-white">Frontman</h4>
+                                    <p class="text-xs text-gray-400">@frontman2</p>
+                                </div>
+                            </div>
+                            <span class="text-brandGreen text-sm font-bold">5/5</span>
+                        </div>
+                        <p class="text-gray-300 text-sm leading-relaxed">"BaconHub is impressive, fast, reliable, and gives the noobs a taste of power... awesome features!"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Supported Exploits Section -->
+        <section id="exploits" class="py-20 px-4 max-w-6xl mx-auto text-center">
+            <h2 class="text-3xl font-extrabold text-white mb-3">Supported <span class="text-brandGreen">Executors</span></h2>
+            <p class="text-gray-400 text-sm md:text-base mb-12">BaconHub is built to be compatible with all major script executors.</p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+                <div class="bg-cardBg border border-cardBorder rounded-xl p-6 flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-droplet text-brandGreen text-2xl mb-3"></i>
+                    <span class="text-sm font-bold text-white">Hydrogen</span>
+                </div>
+                <div class="bg-cardBg border border-cardBorder rounded-xl p-6 flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-bolt text-brandGreen text-2xl mb-3"></i>
+                    <span class="text-sm font-bold text-white">Synapse Z</span>
+                </div>
+                <div class="bg-cardBg border border-cardBorder rounded-xl p-6 flex flex-col items-center justify-center">
+                    <i class="fa-solid fa-shield text-brandGreen text-2xl mb-3"></i>
+                    <span class="text-sm font-bold text-white">Delta</span>
+                </div>
+                <div class="bg-cardBg border border-brandGreen/50 rounded-xl p-6 flex flex-col items-center justify-center bg-brandGreen/5">
+                    <i class="fa-solid fa-fire text-brandGreen text-2xl mb-3"></i>
+                    <span class="text-sm font-bold text-white">Seliware</span>
+                </div>
+                <div class="bg-cardBg border border-cardBorder rounded-xl p-6 flex flex-col items-center justify-center col-span-2 sm:col-span-1">
+                    <i class="fa-solid fa-plus text-brandGreen text-2xl mb-3"></i>
+                    <span class="text-sm font-bold text-brandGreen">And more...</span>
+                </div>
+            </div>
+
+            <div class="inline-block bg-cardBg border border-cardBorder rounded-xl p-4 max-w-xl text-xs text-gray-400">
+                <span class="text-brandGreen font-bold">Note:</span> If you don't see your exploit in this list, chances are it still works! BaconHub is designed to be universal.
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-20 px-4 max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-extrabold text-white mb-3">Frequently Asked <span class="text-brandGreen">Questions</span></h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="bg-cardBg border border-cardBorder rounded-xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-brandGreen transition-colors">
+                        <span class="text-brandGreen">How do I get whitelisted?</span>
+                        <i class="fa-solid fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="px-5 pb-5 text-gray-400 text-sm hidden">
+                        You can get whitelisted by purchasing a premium license key or participating in our community events and giveaways.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-cardBg border border-cardBorder rounded-xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-brandGreen transition-colors">
+                        <span>Where can I report bugs and suggest features?</span>
+                        <i class="fa-solid fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="px-5 pb-5 text-gray-400 text-sm hidden">
+                        You can reach out to our development team and community through our support channels or GitHub repository issues.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-cardBg border border-cardBorder rounded-xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-brandGreen transition-colors">
+                        <span>Does this work on mobile?</span>
+                        <i class="fa-solid fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="px-5 pb-5 text-gray-400 text-sm hidden">
+                        Yes! BaconHub supports mobile executors like Delta and Hydrogen as long as they have good environment support.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="bg-cardBg border border-cardBorder rounded-xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-brandGreen transition-colors">
+                        <span>I can't close the GUI. How can I fix it?</span>
+                        <i class="fa-solid fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="px-5 pb-5 text-gray-400 text-sm hidden">
+                        You can use the designated toggle keybind in the settings menu or re-execute the script.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="bg-cardBg border border-cardBorder rounded-xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-brandGreen transition-colors">
+                        <span>What games are supported?</span>
+                        <i class="fa-solid fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="px-5 pb-5 text-gray-400 text-sm hidden">
+                        We support Doors, Jailbreak, Piggy, Tower of Hell, Build a Boat For Treasure, and many more universal games!
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="bg-cardBg border border-cardBorder rounded-xl overflow-hidden transition-all">
+                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-brandGreen transition-colors">
+                        <span>How do I review the script?</span>
+                        <i class="fa-solid fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="px-5 pb-5 text-gray-400 text-sm hidden">
+                        You can leave your feedback and reviews in our community feedback section or submit them directly to us.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-cardBorder py-8 text-center text-xs text-gray-500">
+        <p>&copy; 2026 BaconHub. All rights reserved. Not affiliated with Roblox Corporation.</p>
+    </footer>
+
+    <!-- JavaScript for interactivity -->
+    <script>
+        // Copy Script Function
+        function copyScript() {
+            const scriptContent = `loadstring(game:HttpGet("https://raw.githubusercontent.com/Coolkidreal102/Bacon/main/loader.lua"))()`;
+            navigator.clipboard.writeText(scriptContent).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('translate-y-24', 'opacity-0');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-24', 'opacity-0');
+                }, 3000);
+            });
+        }
+
+        // FAQ Toggle Accordion
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            // Toggle hidden state
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Game Filter Function
+        function filterGames(category) {
+            const cards = document.querySelectorAll('.game-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Update active button styles
+            buttons.forEach(btn => {
+                if(btn.textContent.toLowerCase() === category.toLowerCase() || (category === 'all' && btn.textContent === 'All')) {
+                    btn.className = 'filter-btn bg-brandGreen text-darkBg font-bold px-4 py-1.5 rounded-full text-xs transition-all';
+                } else {
+                    btn.className = 'filter-btn bg-cardBg border border-cardBorder text-gray-300 hover:text-white font-medium px-4 py-1.5 rounded-full text-xs transition-all';
+                }
+            });
+
+            // Filter cards
+            cards.forEach(card => {
+                if(category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
