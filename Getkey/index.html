@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BaconHub - Select Key Provider</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0b0f0c',
+                        cardBg: '#121814',
+                        cardBorder: '#1e2820',
+                        brandGreen: '#00ff66',
+                        brandGreenHover: '#00cc52',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #0b0f0c;
+            color: #e5e7eb;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .glow-text {
+            text-shadow: 0 0 25px rgba(0, 255, 102, 0.4);
+        }
+        .glass-nav {
+            background: rgba(12, 18, 14, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .provider-workink:hover {
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.25);
+            border-color: #00ff66;
+        }
+        .provider-linkvertise:hover {
+            box-shadow: 0 0 25px rgba(234, 88, 12, 0.25);
+            border-color: #ea580c;
+        }
+        .provider-lootlabs:hover {
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.25);
+            border-color: #a855f7;
+        }
+    </style>
+</head>
+<body class="bg-darkBg text-gray-100 min-h-screen flex flex-col justify-between">
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-4 left-0 right-0 z-40 flex justify-center px-4">
+        <nav class="glass-nav rounded-full px-6 py-3 flex items-center justify-between w-full max-w-5xl shadow-2xl">
+            <a href="../index.html" class="flex items-center space-x-2.5 group">
+                <div class="w-8 h-8 rounded-lg bg-brandGreen/20 border border-brandGreen/40 flex items-center justify-center text-brandGreen group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-b text-lg"></i>
+                </div>
+                <span class="font-extrabold text-lg tracking-wide text-white">BaconHub</span>
+            </a>
+
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
+                <a href="../index.html#features" class="hover:text-brandGreen transition-colors">Features</a>
+                <a href="../index.html#games" class="hover:text-brandGreen transition-colors">Games</a>
+                <a href="../index.html#reviews" class="hover:text-brandGreen transition-colors">Reviews</a>
+                <a href="../index.html#exploits" class="hover:text-brandGreen transition-colors">Exploits</a>
+                <a href="../index.html#faq" class="hover:text-brandGreen transition-colors">FAQ</a>
+            </div>
+
+            <a href="../index.html#premium" class="bg-brandGreen hover:bg-brandGreenHover text-darkBg font-bold px-5 py-2 rounded-full text-sm transition-all shadow-lg hover:shadow-brandGreen/30 transform hover:-translate-y-0.5">
+                Buy Premium
+            </a>
+        </nav>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow pt-36 pb-20 flex flex-col items-center justify-center px-4 relative">
+        <div class="absolute w-96 h-96 bg-brandGreen/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="text-center max-w-2xl mx-auto mb-12 relative z-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+                Select <span class="text-brandGreen glow-text">Key Provider</span>
+            </h1>
+            <p class="text-gray-400 text-sm md:text-base">
+                Choose your preferred method to obtain a key. All providers are secure and fast.
+            </p>
+        </div>
+
+        <!-- Providers Selection -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl relative z-10 mb-8">
+            <a href="https://work.ink/your-link-here" target="_blank" class="provider-workink bg-cardBg border border-brandGreen/40 rounded-2xl p-8 flex flex-col items-center justify-center transition-all group">
+                <span class="text-brandGreen font-extrabold text-xl tracking-wide group-hover:scale-105 transition-transform">work.ink</span>
+            </a>
+
+            <a href="https://linkvertise.com/your-link-here" target="_blank" class="provider-linkvertise bg-cardBg border border-orange-500/40 rounded-2xl p-8 flex flex-col items-center justify-center transition-all group">
+                <span class="text-orange-500 font-extrabold text-xl tracking-wide group-hover:scale-105 transition-transform">Linkvertise</span>
+            </a>
+
+            <a href="https://lootlabs.com/your-link-here" target="_blank" class="provider-lootlabs bg-cardBg border border-purple-500/40 rounded-2xl p-8 flex flex-col items-center justify-center transition-all group">
+                <span class="text-purple-400 font-extrabold text-xl tracking-wide group-hover:scale-105 transition-transform">LootLabs</span>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-cardBorder py-8 text-center text-xs text-gray-500">
+        <p>&copy; 2026 BaconHub. All rights reserved. Not affiliated with Roblox Corporation.</p>
+    </footer>
+
+</body>
+</html>
