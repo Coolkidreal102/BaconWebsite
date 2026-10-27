@@ -46,13 +46,17 @@
             box-shadow: 0 0 25px rgba(0, 255, 102, 0.25);
             border-color: #00ff66;
         }
-        .provider-linkvertise:hover {
-            box-shadow: 0 0 25px rgba(234, 88, 12, 0.25);
-            border-color: #ea580c;
-        }
         .provider-lootlabs:hover {
             box-shadow: 0 0 25px rgba(168, 85, 247, 0.25);
             border-color: #a855f7;
+        }
+        /* Floating background logo animation */
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-8px) scale(1.03); }
+        }
+        .floating-bg-logo {
+            animation: floatLogo 4s ease-in-out infinite;
         }
     </style>
 </head>
@@ -84,7 +88,15 @@
 
     <!-- Main Content Container -->
     <main class="flex-grow pt-36 pb-20 flex flex-col items-center justify-center px-4 relative">
+        <!-- Background ambient glow -->
         <div class="absolute w-96 h-96 bg-brandGreen/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Floating Background 'B' Logo (Vynixius Style) -->
+        <div class="absolute flex items-center justify-center pointer-events-none opacity-20 z-0">
+            <div class="floating-bg-logo w-44 h-44 rounded-3xl bg-brandGreen/20 border-2 border-brandGreen flex items-center justify-center text-brandGreen text-8xl font-black shadow-[0_0_50px_rgba(0,255,102,0.3)]">
+                B
+            </div>
+        </div>
 
         <div class="text-center max-w-2xl mx-auto mb-12 relative z-10">
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
@@ -95,17 +107,15 @@
             </p>
         </div>
 
-        <!-- Providers Selection -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl relative z-10 mb-8">
+        <!-- 2 Providers Grid (Work.ink & LootLabs) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-2xl relative z-10 mb-8">
+            <!-- Work.ink -->
             <a href="https://work.ink/your-link-here" target="_blank" class="provider-workink bg-cardBg border border-brandGreen/40 rounded-2xl p-8 flex flex-col items-center justify-center transition-all group">
                 <span class="text-brandGreen font-extrabold text-xl tracking-wide group-hover:scale-105 transition-transform">work.ink</span>
             </a>
 
-            <a href="https://linkvertise.com/your-link-here" target="_blank" class="provider-linkvertise bg-cardBg border border-orange-500/40 rounded-2xl p-8 flex flex-col items-center justify-center transition-all group">
-                <span class="text-orange-500 font-extrabold text-xl tracking-wide group-hover:scale-105 transition-transform">Linkvertise</span>
-            </a>
-
-            <a href="https://lootlabs.com/your-link-here" target="_blank" class="provider-lootlabs bg-cardBg border border-purple-500/40 rounded-2xl p-8 flex flex-col items-center justify-center transition-all group">
+            <!-- LootLabs -->
+            <a href="https://lootlabs.gg/your-link-here" target="_blank" class="provider-lootlabs bg-cardBg border border-purple-500/40 rounded-2xl p-8 flex flex-col items-center justify-center transition-all group">
                 <span class="text-purple-400 font-extrabold text-xl tracking-wide group-hover:scale-105 transition-transform">LootLabs</span>
             </a>
         </div>
