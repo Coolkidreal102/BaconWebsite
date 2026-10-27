@@ -100,7 +100,7 @@
             </div>
 
             <div class="w-full max-w-md">
-                <a href="#" id="kys-link-btn" onclick="startVerification()" target="_blank" class="provider-btn bg-cardBg border border-purple-500/40 rounded-2xl p-6 flex flex-col items-center justify-center transition-all group shadow-xl">
+                <a href="#" id="kys-link-btn" target="_blank" class="provider-btn bg-cardBg border border-purple-500/40 rounded-2xl p-6 flex flex-col items-center justify-center transition-all group shadow-xl">
                     <span class="text-purple-400 font-extrabold text-lg tracking-wide group-hover:scale-105 transition-transform mb-1">Proceed to Get Key</span>
                     <span class="text-xs text-gray-400 font-mono" id="session-preview-token">Generating token...</span>
                 </a>
@@ -136,8 +136,8 @@
         <p>&copy; 2026 BaconHub. All rights reserved.</p>
     </footer>
 
+    <!-- Script Logic -->
     <script>
-        // Generate a random token string (e.g., BACON-7x92a4)
         function generateRandomToken() {
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             let token = "BACON-";
@@ -147,18 +147,13 @@
             return token;
         }
 
-        // Check local storage or URL parameters on load
         const urlParams = new URLSearchParams(window.location.search);
         const returningToken = urlParams.get('token');
-        
         let activeToken = localStorage.getItem('bacon_active_token');
 
         if (returningToken && returningToken === localStorage.getItem('bacon_pending_token')) {
-            // User successfully completed the link and came back with matching token!
             localStorage.removeItem('bacon_pending_token');
             localStorage.setItem('bacon_unlocked_key', returningToken);
-            
-            // Clean URL query parameters so they can't refresh and re-use easily
             window.history.replaceState({}, document.title, window.location.pathname);
             
             document.getElementById('selector-view').classList.add('hidden');
@@ -166,29 +161,22 @@
             document.getElementById('unique-key-box').innerText = returningToken;
         } 
         else if (localStorage.getItem('bacon_unlocked_key')) {
-            // Already unlocked before in this browser session
             document.getElementById('selector-view').classList.add('hidden');
             document.getElementById('success-view').classList.remove('hidden');
             document.getElementById('unique-key-box').innerText = localStorage.getItem('bacon_unlocked_key');
         } 
         else {
-            // Generate a fresh pending token for this visit
             if (!activeToken) {
                 activeToken = generateRandomToken();
                 localStorage.setItem('bacon_active_token', activeToken);
             }
             
-            // Set up the Kys protected link dynamically with the random token appended
             const currentWebsiteURL = window.location.origin + window.location.pathname;
-            const kysBaseURL = "https://kys.linkvertise.lol/your-protected-link-id"; // REPLACE WITH YOUR ACTUAL KYS LINK
+            const kysBaseURL = "https://kys.linkvertise.lol/DTOM/4fdae661-03dc-4ef4-8148-67115cc21d0f"; 
             
             document.getElementById('kys-link-btn').href = `${kysBaseURL}?r=${encodeURIComponent(currentWebsiteURL + "?token=" + activeToken)}`;
             document.getElementById('session-preview-token').innerText = `Session ID: ${activeToken}`;
             localStorage.setItem('bacon_pending_token', activeToken);
-        }
-
-        function startVerification() {
-            // Optional: Actions when clicking
         }
 
         function copyKey() {
