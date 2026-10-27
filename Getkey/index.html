@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BaconHub - Select Key Provider</title>
+    <title>BaconHub - Key System</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -15,6 +15,8 @@
                         darkBg: '#0b0f0c',
                         cardBg: '#121814',
                         cardBorder: '#1e2820',
+                        brandGreen: '#00ff66',
+                        brandGreenHover: '#00cc52',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -37,15 +39,10 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        .provider-workink:hover {
-            box-shadow: 0 0 25px rgba(0, 255, 102, 0.25);
-            border-color: #00ff66;
-        }
-        .provider-lootlabs:hover {
+        .provider-btn:hover {
             box-shadow: 0 0 25px rgba(168, 85, 247, 0.25);
             border-color: #a855f7;
         }
-        /* Floating background logo animation */
         @keyframes floatLogo {
             0%, 100% { transform: translateY(0px) scale(1); }
             50% { transform: translateY(-8px) scale(1.03); }
@@ -57,113 +54,168 @@
 </head>
 <body class="bg-darkBg text-gray-100 min-h-screen flex flex-col justify-between">
 
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-cardBg border border-brandGreen text-white px-6 py-3 rounded-xl shadow-2xl flex items-center space-x-3">
+        <i class="fa-solid fa-circle-check text-brandGreen text-xl"></i>
+        <div>
+            <p class="font-bold text-sm">Copied Key!</p>
+            <p class="text-xs text-gray-400">Paste it into the script GUI.</p>
+        </div>
+    </div>
+
     <!-- Navigation Bar -->
     <header class="fixed top-4 left-0 right-0 z-40 flex justify-center px-4">
         <nav class="glass-nav rounded-full px-6 py-3 flex items-center justify-between w-full max-w-5xl shadow-2xl">
-            <a href="../index.html" class="flex items-center space-x-2.5 group">
+            <a href="../" class="flex items-center space-x-2.5 group">
                 <div id="nav-logo-box" class="w-8 h-8 rounded-lg border flex items-center justify-center transition-transform group-hover:scale-105">
-                    <i id="nav-logo-icon" class="fa-solid fa-b text-lg"></i>
+                    <i class="fa-solid fa-b text-lg"></i>
                 </div>
                 <span class="font-extrabold text-lg tracking-wide text-white">BaconHub</span>
             </a>
-
             <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
-                <a href="../index.html#features" class="nav-link hover:opacity-85 transition-colors">Features</a>
-                <a href="../index.html#games" class="nav-link hover:opacity-85 transition-colors">Games</a>
-                <a href="../index.html#reviews" class="nav-link hover:opacity-85 transition-colors">Reviews</a>
-                <a href="../index.html#exploits" class="nav-link hover:opacity-85 transition-colors">Exploits</a>
-                <a href="../index.html#faq" class="nav-link hover:opacity-85 transition-colors">FAQ</a>
+                <a href="../index.html#features" class="hover:opacity-80 transition-colors">Features</a>
+                <a href="../index.html#games" class="hover:opacity-80 transition-colors">Games</a>
             </div>
-
-            <a id="nav-btn" href="../index.html#premium" class="font-bold px-5 py-2 rounded-full text-sm transition-all shadow-lg transform hover:-translate-y-0.5">
-                Buy Premium
-            </a>
+            <a id="nav-btn" href="../index.html#premium" class="font-bold px-5 py-2 rounded-full text-sm transition-all shadow-lg">Buy Premium</a>
         </nav>
     </header>
 
     <!-- Main Content Container -->
     <main class="flex-grow pt-36 pb-20 flex flex-col items-center justify-center px-4 relative">
-        <!-- Background ambient glow -->
         <div id="ambient-glow" class="absolute w-96 h-96 rounded-full blur-3xl pointer-events-none transition-all duration-700"></div>
 
-        <!-- Floating Background 'B' Logo (Dynamic Color) -->
         <div class="absolute flex items-center justify-center pointer-events-none opacity-20 z-0">
-            <div id="floating-b" class="floating-bg-logo w-44 h-44 rounded-3xl border-2 flex items-center justify-center text-8xl font-black">
-                B
+            <div id="floating-b" class="floating-bg-logo w-44 h-44 rounded-3xl border-2 flex items-center justify-center text-8xl font-black">B</div>
+        </div>
+
+        <!-- STEP 1: GENERATE TOKEN & CLICK LINK -->
+        <div id="selector-view" class="w-full flex flex-col items-center relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+                    BaconHub <span id="title-highlight">Key System</span>
+                </h1>
+                <p class="text-gray-400 text-sm md:text-base mb-6">
+                    Click below to generate your session token and complete the protected link.
+                </p>
+            </div>
+
+            <div class="w-full max-w-md">
+                <a href="#" id="kys-link-btn" onclick="startVerification()" target="_blank" class="provider-btn bg-cardBg border border-purple-500/40 rounded-2xl p-6 flex flex-col items-center justify-center transition-all group shadow-xl">
+                    <span class="text-purple-400 font-extrabold text-lg tracking-wide group-hover:scale-105 transition-transform mb-1">Proceed to Get Key</span>
+                    <span class="text-xs text-gray-400 font-mono" id="session-preview-token">Generating token...</span>
+                </a>
             </div>
         </div>
 
-        <div class="text-center max-w-2xl mx-auto mb-12 relative z-10">
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
-                Select <span id="title-highlight" class="transition-all duration-700">Key Provider</span>
-            </h1>
-            <p class="text-gray-400 text-sm md:text-base">
-                Choose your preferred method to obtain a key. All providers are secure and fast.
-            </p>
-        </div>
+        <!-- STEP 2: REVEAL UNIQUE KEY UPON RETURN -->
+        <div id="success-view" class="w-full flex flex-col items-center relative z-10 hidden">
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <div class="w-16 h-16 bg-brandGreen/20 border border-brandGreen text-brandGreen rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">
+                    Key <span class="text-brandGreen">Generated Successfully!</span>
+                </h1>
+                <p class="text-gray-400 text-sm">This unique key is tied to your active session.</p>
+            </div>
 
-        <!-- 2 Providers Grid (Work.ink & LootLabs) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-2xl relative z-10 mb-8">
-            <!-- Work.ink -->
-            <a href="https://work.ink/your-link-here" target="_blank" class="provider-workink bg-cardBg border border-brandGreen/40 rounded-2xl p-8 flex flex-col items-center justify-center transition-all group">
-                <span class="text-brandGreen font-extrabold text-xl tracking-wide group-hover:scale-105 transition-transform">work.ink</span>
-            </a>
-
-            <!-- LootLabs -->
-            <a href="https://lootlabs.gg/your-link-here" target="_blank" class="provider-lootlabs bg-cardBg border border-purple-500/40 rounded-2xl p-8 flex flex-col items-center justify-center transition-all group">
-                <span class="text-purple-400 font-extrabold text-xl tracking-wide group-hover:scale-105 transition-transform">LootLabs</span>
-            </a>
+            <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 w-full max-w-md flex flex-col items-center space-y-4 shadow-2xl">
+                <div class="w-full bg-darkBg border border-cardBorder rounded-xl p-4 text-center font-mono text-brandGreen font-bold tracking-widest text-base select-all" id="unique-key-box">
+                    LOADING...
+                </div>
+                <button onclick="copyKey()" class="w-full bg-brandGreen hover:bg-brandGreenHover text-darkBg font-extrabold py-3.5 rounded-xl transition-all shadow-lg flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>Copy Unique Key</span>
+                </button>
+            </div>
         </div>
     </main>
 
     <!-- Footer -->
     <footer class="border-t border-cardBorder py-8 text-center text-xs text-gray-500">
-        <p>&copy; 2026 BaconHub. All rights reserved. Not affiliated with Roblox Corporation.</p>
+        <p>&copy; 2026 BaconHub. All rights reserved.</p>
     </footer>
 
-    <!-- Script to randomize or alternate themes on every refresh (Green <-> Purple) -->
     <script>
-        // Array of themes: Green theme vs Purple theme
-        const themes = [
-            {
-                name: 'green',
-                colorCode: '#00ff66',
-                glowClass: 'bg-[#00ff66]/10 shadow-[0_0_50px_rgba(0,255,102,0.3)]',
-                textShadow: '0 0 25px rgba(0, 255, 102, 0.4)',
-                borderClass: 'border-[#00ff66]',
-                bgBox: 'bg-[#00ff66]/20 text-[#00ff66] border-[#00ff66]/40',
-                btnClass: 'bg-[#00ff66] hover:bg-[#00cc52] text-[#0b0f0c] shadow-[#00ff66]/30'
-            },
-            {
-                name: 'purple',
-                colorCode: '#a855f7',
-                glowClass: 'bg-[#a855f7]/10 shadow-[0_0_50px_rgba(168,85,247,0.3)]',
-                textShadow: '0 0 25px rgba(168, 85, 247, 0.4)',
-                borderClass: 'border-[#a855f7]',
-                bgBox: 'bg-[#a855f7]/20 text-[#a855f7] border-[#a855f7]/40',
-                btnClass: 'bg-[#a855f7] hover:bg-[#9333ea] text-white shadow-[#a855f7]/30'
+        // Generate a random token string (e.g., BACON-7x92a4)
+        function generateRandomToken() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let token = "BACON-";
+            for (let i = 0; i < 6; i++) {
+                token += chars.charAt(Math.floor(Math.random() * chars.length));
             }
-        ];
+            return token;
+        }
 
-        // Randomly pick a theme every time the page loads / refreshes
-        const randomTheme = themes[Math.floor(Math.random() * themes.length)];
-
-        // Apply theme elements
-        document.getElementById('ambient-glow').className = `absolute w-96 h-96 rounded-full blur-3xl pointer-events-none transition-all duration-700 ${randomTheme.glowClass}`;
+        // Check local storage or URL parameters on load
+        const urlParams = new URLSearchParams(window.location.search);
+        const returningToken = urlParams.get('token');
         
+        let activeToken = localStorage.getItem('bacon_active_token');
+
+        if (returningToken && returningToken === localStorage.getItem('bacon_pending_token')) {
+            // User successfully completed the link and came back with matching token!
+            localStorage.removeItem('bacon_pending_token');
+            localStorage.setItem('bacon_unlocked_key', returningToken);
+            
+            // Clean URL query parameters so they can't refresh and re-use easily
+            window.history.replaceState({}, document.title, window.location.pathname);
+            
+            document.getElementById('selector-view').classList.add('hidden');
+            document.getElementById('success-view').classList.remove('hidden');
+            document.getElementById('unique-key-box').innerText = returningToken;
+        } 
+        else if (localStorage.getItem('bacon_unlocked_key')) {
+            // Already unlocked before in this browser session
+            document.getElementById('selector-view').classList.add('hidden');
+            document.getElementById('success-view').classList.remove('hidden');
+            document.getElementById('unique-key-box').innerText = localStorage.getItem('bacon_unlocked_key');
+        } 
+        else {
+            // Generate a fresh pending token for this visit
+            if (!activeToken) {
+                activeToken = generateRandomToken();
+                localStorage.setItem('bacon_active_token', activeToken);
+            }
+            
+            // Set up the Kys protected link dynamically with the random token appended
+            const currentWebsiteURL = window.location.origin + window.location.pathname;
+            const kysBaseURL = "https://kys.linkvertise.lol/your-protected-link-id"; // REPLACE WITH YOUR ACTUAL KYS LINK
+            
+            document.getElementById('kys-link-btn').href = `${kysBaseURL}?r=${encodeURIComponent(currentWebsiteURL + "?token=" + activeToken)}`;
+            document.getElementById('session-preview-token').innerText = `Session ID: ${activeToken}`;
+            localStorage.setItem('bacon_pending_token', activeToken);
+        }
+
+        function startVerification() {
+            // Optional: Actions when clicking
+        }
+
+        function copyKey() {
+            const keyVal = document.getElementById('unique-key-box').innerText;
+            navigator.clipboard.writeText(keyVal).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('translate-y-24', 'opacity-0');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-24', 'opacity-0');
+                }, 3000);
+            });
+        }
+
+        // Theme styling script
+        const themes = [
+            { colorCode: '#00ff66', glowClass: 'bg-[#00ff66]/10 shadow-[0_0_50px_rgba(0,255,102,0.3)]', textShadow: '0 0 25px rgba(0, 255, 102, 0.4)', bgBox: 'bg-[#00ff66]/20 text-[#00ff66] border-[#00ff66]/40', btnClass: 'bg-[#00ff66] text-[#0b0f0c]' },
+            { colorCode: '#a855f7', glowClass: 'bg-[#a855f7]/10 shadow-[0_0_50px_rgba(168,85,247,0.3)]', textShadow: '0 0 25px rgba(168, 85, 247, 0.4)', bgBox: 'bg-[#a855f7]/20 text-[#a855f7] border-[#a855f7]/40', btnClass: 'bg-[#a855f7] text-white' }
+        ];
+        const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+        document.getElementById('ambient-glow').className = `absolute w-96 h-96 rounded-full blur-3xl pointer-events-none transition-all duration-700 ${randomTheme.glowClass}`;
         const floatingB = document.getElementById('floating-b');
         floatingB.className = `floating-bg-logo w-44 h-44 rounded-3xl border-2 flex items-center justify-center text-8xl font-black ${randomTheme.bgBox}`;
         floatingB.style.boxShadow = randomTheme.textShadow;
-
         const titleHighlight = document.getElementById('title-highlight');
-        titleHighlight.style.color = randomTheme.colorCode;
-        titleHighlight.style.textShadow = randomTheme.textShadow;
-
-        const navLogoBox = document.getElementById('nav-logo-box');
-        navLogoBox.className = `w-8 h-8 rounded-lg border flex items-center justify-center transition-transform group-hover:scale-105 ${randomTheme.bgBox}`;
-
-        const navBtn = document.getElementById('nav-btn');
-        navBtn.className = `font-bold px-5 py-2 rounded-full text-sm transition-all shadow-lg transform hover:-translate-y-0.5 ${randomTheme.btnClass}`;
+        if(titleHighlight) { titleHighlight.style.color = randomTheme.colorCode; titleHighlight.style.textShadow = randomTheme.textShadow; }
+        document.getElementById('nav-logo-box').className = `w-8 h-8 rounded-lg border flex items-center justify-center transition-transform group-hover:scale-105 ${randomTheme.bgBox}`;
+        document.getElementById('nav-btn').className = `font-bold px-5 py-2 rounded-full text-sm transition-all shadow-lg ${randomTheme.btnClass}`;
     </script>
 </body>
 </html>
