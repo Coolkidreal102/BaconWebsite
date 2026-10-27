@@ -15,8 +15,6 @@
                         darkBg: '#0b0f0c',
                         cardBg: '#121814',
                         cardBorder: '#1e2820',
-                        brandGreen: '#00ff66',
-                        brandGreenHover: '#00cc52',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -34,20 +32,11 @@
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
         }
-        /* Custom glowing effects */
-        .glow-text {
-            text-shadow: 0 0 25px rgba(0, 255, 102, 0.4);
-        }
-        .glow-box {
-            box-shadow: 0 0 30px rgba(0, 255, 102, 0.15);
-        }
-        /* Glass Navbar */
         .glass-nav {
             background: rgba(12, 18, 14, 0.85);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 155, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -58,16 +47,13 @@
             background: #1e2820;
             border-radius: 4px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00ff66;
-        }
     </style>
 </head>
 <body class="bg-darkBg text-gray-100 min-h-screen flex flex-col justify-between">
 
     <!-- Toast Notification -->
     <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-cardBg border border-brandGreen text-white px-6 py-3 rounded-xl shadow-2xl flex items-center space-x-3">
-        <i class="fa-solid fa-circle-check text-brandGreen text-xl"></i>
+        <i id="toast-icon" class="fa-solid fa-circle-check text-xl"></i>
         <div>
             <p class="font-bold text-sm">Copied to Clipboard!</p>
             <p class="text-xs text-gray-400">Loadstring is ready to execute.</p>
@@ -77,25 +63,22 @@
     <!-- Navigation Bar -->
     <header class="fixed top-4 left-0 right-0 z-40 flex justify-center px-4">
         <nav class="glass-nav rounded-full px-6 py-3 flex items-center justify-between w-full max-w-5xl shadow-2xl">
-            <!-- Logo -->
             <a href="#" class="flex items-center space-x-2.5 group">
-                <div class="w-8 h-8 rounded-lg bg-brandGreen/20 border border-brandGreen/40 flex items-center justify-center text-brandGreen group-hover:scale-105 transition-transform">
+                <div id="nav-logo-box" class="w-8 h-8 rounded-lg border flex items-center justify-center transition-transform group-hover:scale-105">
                     <i class="fa-solid fa-b text-lg"></i>
                 </div>
                 <span class="font-extrabold text-lg tracking-wide text-white">BaconHub</span>
             </a>
 
-            <!-- Nav Links -->
             <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
-                <a href="#features" class="hover:text-brandGreen transition-colors">Features</a>
-                <a href="#games" class="hover:text-brandGreen transition-colors">Games</a>
-                <a href="#reviews" class="hover:text-brandGreen transition-colors">Reviews</a>
-                <a href="#exploits" class="hover:text-brandGreen transition-colors">Exploits</a>
-                <a href="#faq" class="hover:text-brandGreen transition-colors">FAQ</a>
+                <a href="#features" class="hover:opacity-80 transition-colors">Features</a>
+                <a href="#games" class="hover:opacity-80 transition-colors">Games</a>
+                <a href="#reviews" class="hover:opacity-80 transition-colors">Reviews</a>
+                <a href="#exploits" class="hover:opacity-80 transition-colors">Exploits</a>
+                <a href="#faq" class="hover:opacity-80 transition-colors">FAQ</a>
             </div>
 
-            <!-- Buy Premium Button -->
-            <a href="#premium" class="bg-brandGreen hover:bg-brandGreenHover text-darkBg font-bold px-5 py-2 rounded-full text-sm transition-all shadow-lg hover:shadow-brandGreen/30 transform hover:-translate-y-0.5">
+            <a id="nav-btn" href="#premium" class="font-bold px-5 py-2 rounded-full text-sm transition-all shadow-lg transform hover:-translate-y-0.5">
                 Buy Premium
             </a>
         </nav>
@@ -106,80 +89,73 @@
 
         <!-- Hero Section -->
         <section class="relative py-20 px-4 text-center max-w-5xl mx-auto flex flex-col items-center">
-            <!-- Background ambient glow -->
-            <div class="absolute w-96 h-96 bg-brandGreen/10 rounded-full blur-3xl -top-10 pointer-events-none"></div>
+            <div id="ambient-glow" class="absolute w-96 h-96 rounded-full blur-3xl -top-10 pointer-events-none transition-all duration-700"></div>
 
             <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-6">
-                Unlock Your <span class="text-brandGreen glow-text">True Potential</span>
+                Unlock Your <span id="hero-title-highlight" class="transition-all duration-700">True Potential</span>
             </h1>
             <p class="text-gray-400 max-w-2xl text-base md:text-lg mb-10">
                 The most advanced, secure, and feature-rich script hub for Roblox. Dominating the game has never been this easy.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md">
-                <button onclick="copyScript()" class="w-full sm:w-auto bg-brandGreen hover:bg-brandGreenHover text-darkBg font-extrabold px-8 py-3.5 rounded-xl transition-all shadow-lg hover:shadow-brandGreen/30 flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-terminal"></i>
-                    <span>Get Script</span>
-                </button>
-                <a href="#premium" class="w-full sm:w-auto bg-cardBg hover:bg-cardBorder border border-cardBorder hover:border-brandGreen/40 text-white font-semibold px-8 py-3.5 rounded-xl transition-all flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-crown text-brandGreen"></i>
-                    <span>Buy Premium</span>
+                <a href="./Getkey/" id="hero-btn-primary" class="w-full sm:w-auto font-extrabold px-8 py-3.5 rounded-xl transition-all shadow-lg flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-key"></i>
+                    <span>Get Key</span>
                 </a>
+                <button onclick="copyScript()" id="hero-btn-secondary" class="w-full sm:w-auto bg-cardBg hover:bg-cardBorder border border-cardBorder text-white font-semibold px-8 py-3.5 rounded-xl transition-all flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-terminal"></i>
+                    <span>Copy Script</span>
+                </button>
             </div>
         </section>
 
         <!-- Why Choose Us Section -->
         <section id="features" class="py-20 px-4 max-w-6xl mx-auto">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-extrabold text-white mb-3">Why Choose <span class="text-brandGreen">BaconHub</span>?</h2>
+                <h2 class="text-3xl font-extrabold text-white mb-3">Why Choose <span id="feature-title-highlight">BaconHub</span>?</h2>
                 <p class="text-gray-400 text-sm md:text-base">Experience the difference with our cutting-edge features designed for power users.</p>
-                <p class="text-brandGreen text-sm font-semibold mt-1">"Quality over quantity" is our promise.</p>
+                <p id="promise-text" class="text-sm font-semibold mt-1">"Quality over quantity" is our promise.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Feature 1 -->
-                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-brandGreen/40 transition-all group">
-                    <div class="w-12 h-12 rounded-xl bg-brandGreen/10 border border-brandGreen/30 flex items-center justify-center text-brandGreen mb-5 group-hover:scale-110 transition-transform">
+                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-gray-500 transition-all group">
+                    <div class="feature-icon w-12 h-12 rounded-lg border flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-gamepad text-xl"></i>
                     </div>
                     <h3 class="text-lg font-bold text-white mb-2">5+ Games Supported</h3>
                     <p class="text-gray-400 text-sm leading-relaxed">We support 6-7 popular games with custom tailored scripts for each one.</p>
                 </div>
-                <!-- Feature 2 -->
-                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-brandGreen/40 transition-all group">
-                    <div class="w-12 h-12 rounded-xl bg-brandGreen/10 border border-brandGreen/30 flex items-center justify-center text-brandGreen mb-5 group-hover:scale-110 transition-transform">
+                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-gray-500 transition-all group">
+                    <div class="feature-icon w-12 h-12 rounded-lg border flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-clock text-xl"></i>
                     </div>
                     <h3 class="text-lg font-bold text-white mb-2">24/7 Support</h3>
                     <p class="text-gray-400 text-sm leading-relaxed">Our team is always online to help you with any issues you might encounter.</p>
                 </div>
-                <!-- Feature 3 -->
-                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-brandGreen/40 transition-all group">
-                    <div class="w-12 h-12 rounded-xl bg-brandGreen/10 border border-brandGreen/30 flex items-center justify-center text-brandGreen mb-5 group-hover:scale-110 transition-transform">
+                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-gray-500 transition-all group">
+                    <div class="feature-icon w-12 h-12 rounded-lg border flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-star text-xl"></i>
                     </div>
                     <h3 class="text-lg font-bold text-white mb-2">Premium Quality</h3>
                     <p class="text-gray-400 text-sm leading-relaxed">Optimized, bug-free, and high-performance scripts written by experts.</p>
                 </div>
-                <!-- Feature 4 -->
-                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-brandGreen/40 transition-all group">
-                    <div class="w-12 h-12 rounded-xl bg-brandGreen/10 border border-brandGreen/30 flex items-center justify-center text-brandGreen mb-5 group-hover:scale-110 transition-transform">
+                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-gray-500 transition-all group">
+                    <div class="feature-icon w-12 h-12 rounded-lg border flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-shield-halved text-xl"></i>
                     </div>
                     <h3 class="text-lg font-bold text-white mb-2">Undetected</h3>
                     <p class="text-gray-400 text-sm leading-relaxed">Advanced bypass methods to keep your account safe from bans.</p>
                 </div>
-                <!-- Feature 5 -->
-                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-brandGreen/40 transition-all group">
-                    <div class="w-12 h-12 rounded-xl bg-brandGreen/10 border border-brandGreen/30 flex items-center justify-center text-brandGreen mb-5 group-hover:scale-110 transition-transform">
+                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-gray-500 transition-all group">
+                    <div class="feature-icon w-12 h-12 rounded-lg border flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-bolt text-xl"></i>
                     </div>
                     <h3 class="text-lg font-bold text-white mb-2">Fast Execution</h3>
                     <p class="text-gray-400 text-sm leading-relaxed">Lightning-fast script injection with minimal lag. Optimized for performance.</p>
                 </div>
-                <!-- Feature 6 -->
-                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-brandGreen/40 transition-all group">
-                    <div class="w-12 h-12 rounded-xl bg-brandGreen/10 border border-brandGreen/30 flex items-center justify-center text-brandGreen mb-5 group-hover:scale-110 transition-transform">
+                <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 hover:border-gray-500 transition-all group">
+                    <div class="feature-icon w-12 h-12 rounded-lg border flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-key text-xl"></i>
                     </div>
                     <h3 class="text-lg font-bold text-white mb-2">Key System</h3>
@@ -191,12 +167,11 @@
         <!-- Supported Games Section -->
         <section id="games" class="py-20 px-4 max-w-6xl mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-extrabold text-white mb-3">Supported <span class="text-brandGreen">Games</span></h2>
+                <h2 class="text-3xl font-extrabold text-white mb-3">Supported <span id="games-title-highlight">Games</span></h2>
                 <p class="text-gray-400 text-sm md:text-base mb-6">Explore the games currently supported by BaconHub.</p>
                 
-                <!-- Category Filter Buttons -->
                 <div id="filter-container" class="flex flex-wrap justify-center gap-2">
-                    <button onclick="filterGames('all')" class="filter-btn bg-brandGreen text-darkBg font-bold px-4 py-1.5 rounded-full text-xs transition-all">All</button>
+                    <button onclick="filterGames('all')" class="filter-btn active-filter font-bold px-4 py-1.5 rounded-full text-xs transition-all">All</button>
                     <button onclick="filterGames('Survival')" class="filter-btn bg-cardBg border border-cardBorder text-gray-300 hover:text-white font-medium px-4 py-1.5 rounded-full text-xs transition-all">Survival</button>
                     <button onclick="filterGames('Simulation')" class="filter-btn bg-cardBg border border-cardBorder text-gray-300 hover:text-white font-medium px-4 py-1.5 rounded-full text-xs transition-all">Simulation</button>
                     <button onclick="filterGames('Action')" class="filter-btn bg-cardBg border border-cardBorder text-gray-300 hover:text-white font-medium px-4 py-1.5 rounded-full text-xs transition-all">Action</button>
@@ -204,13 +179,11 @@
                 </div>
             </div>
 
-            <!-- Games Grid -->
             <div id="games-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Game 1 -->
-                <div class="game-card bg-cardBg border border-cardBorder rounded-2xl overflow-hidden hover:border-brandGreen/40 transition-all flex flex-col" data-category="Survival">
+                <div class="game-card bg-cardBg border border-cardBorder rounded-2xl overflow-hidden transition-all flex flex-col" data-category="Survival">
                     <div class="h-40 bg-gradient-to-br from-purple-900/40 to-black relative flex items-center justify-center p-4">
-                        <span class="absolute top-3 right-3 bg-brandGreen/20 border border-brandGreen/40 text-brandGreen text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-brandGreen animate-pulse"></span>
+                        <span class="working-badge absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1 border">
+                            <span class="dot w-1.5 h-1.5 rounded-full animate-pulse"></span>
                             <span>Working</span>
                         </span>
                         <h4 class="text-xl font-extrabold text-white tracking-wide">Doors</h4>
@@ -221,11 +194,10 @@
                     </div>
                 </div>
 
-                <!-- Game 2 -->
-                <div class="game-card bg-cardBg border border-cardBorder rounded-2xl overflow-hidden hover:border-brandGreen/40 transition-all flex flex-col" data-category="Action">
+                <div class="game-card bg-cardBg border border-cardBorder rounded-2xl overflow-hidden transition-all flex flex-col" data-category="Action">
                     <div class="h-40 bg-gradient-to-br from-blue-900/40 to-black relative flex items-center justify-center p-4">
-                        <span class="absolute top-3 right-3 bg-brandGreen/20 border border-brandGreen/40 text-brandGreen text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-brandGreen animate-pulse"></span>
+                        <span class="working-badge absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1 border">
+                            <span class="dot w-1.5 h-1.5 rounded-full animate-pulse"></span>
                             <span>Working</span>
                         </span>
                         <h4 class="text-xl font-extrabold text-white tracking-wide">Jailbreak</h4>
@@ -236,11 +208,10 @@
                     </div>
                 </div>
 
-                <!-- Game 3 -->
-                <div class="game-card bg-cardBg border border-cardBorder rounded-2xl overflow-hidden hover:border-brandGreen/40 transition-all flex flex-col" data-category="Survival">
+                <div class="game-card bg-cardBg border border-cardBorder rounded-2xl overflow-hidden transition-all flex flex-col" data-category="Survival">
                     <div class="h-40 bg-gradient-to-br from-red-900/40 to-black relative flex items-center justify-center p-4">
-                        <span class="absolute top-3 right-3 bg-brandGreen/20 border border-brandGreen/40 text-brandGreen text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-brandGreen animate-pulse"></span>
+                        <span class="working-badge absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1 border">
+                            <span class="dot w-1.5 h-1.5 rounded-full animate-pulse"></span>
                             <span>Working</span>
                         </span>
                         <h4 class="text-xl font-extrabold text-white tracking-wide">Bite By Night</h4>
@@ -250,108 +221,60 @@
                         <span class="text-xs bg-darkBg border border-cardBorder text-gray-400 px-3 py-1 rounded-full">Survival / Action</span>
                     </div>
                 </div>
-
-                <!-- Game 4 -->
-                <div class="game-card bg-cardBg border border-cardBorder rounded-2xl overflow-hidden hover:border-brandGreen/40 transition-all flex flex-col" data-category="Survival">
-                    <div class="h-40 bg-gradient-to-br from-amber-900/40 to-black relative flex items-center justify-center p-4">
-                        <span class="absolute top-3 right-3 bg-brandGreen/20 border border-brandGreen/40 text-brandGreen text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-brandGreen animate-pulse"></span>
-                            <span>Working</span>
-                        </span>
-                        <h4 class="text-xl font-extrabold text-white tracking-wide">Piggy</h4>
-                    </div>
-                    <div class="p-5 flex items-center justify-between border-t border-cardBorder">
-                        <span class="text-sm font-semibold text-white">Piggy</span>
-                        <span class="text-xs bg-darkBg border border-cardBorder text-gray-400 px-3 py-1 rounded-full">Survival</span>
-                    </div>
-                </div>
-
-                <!-- Game 5 -->
-                <div class="game-card bg-cardBg border border-cardBorder rounded-2xl overflow-hidden hover:border-brandGreen/40 transition-all flex flex-col" data-category="Platformer">
-                    <div class="h-40 bg-gradient-to-br from-pink-900/40 to-black relative flex items-center justify-center p-4">
-                        <span class="absolute top-3 right-3 bg-brandGreen/20 border border-brandGreen/40 text-brandGreen text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-brandGreen animate-pulse"></span>
-                            <span>Working</span>
-                        </span>
-                        <h4 class="text-xl font-extrabold text-white tracking-wide">Tower Of Hell</h4>
-                    </div>
-                    <div class="p-5 flex items-center justify-between border-t border-cardBorder">
-                        <span class="text-sm font-semibold text-white">Tower Of Hell</span>
-                        <span class="text-xs bg-darkBg border border-cardBorder text-gray-400 px-3 py-1 rounded-full">Platformer</span>
-                    </div>
-                </div>
-
-                <!-- Game 6 -->
-                <div class="game-card bg-cardBg border border-cardBorder rounded-2xl overflow-hidden hover:border-brandGreen/40 transition-all flex flex-col" data-category="Simulation">
-                    <div class="h-40 bg-gradient-to-br from-emerald-900/40 to-black relative flex items-center justify-center p-4">
-                        <span class="absolute top-3 right-3 bg-brandGreen/20 border border-brandGreen/40 text-brandGreen text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-brandGreen animate-pulse"></span>
-                            <span>Working</span>
-                        </span>
-                        <h4 class="text-xl font-extrabold text-white tracking-wide">Build A Boat</h4>
-                    </div>
-                    <div class="p-5 flex items-center justify-between border-t border-cardBorder">
-                        <span class="text-sm font-semibold text-white">Build A Boat For Treasure</span>
-                        <span class="text-xs bg-darkBg border border-cardBorder text-gray-400 px-3 py-1 rounded-full">Simulation</span>
-                    </div>
-                </div>
             </div>
         </section>
 
-        <!-- What Users Say (Reviews) Section -->
+        <!-- Reviews Section -->
         <section id="reviews" class="py-20 px-4 max-w-6xl mx-auto">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-extrabold text-white mb-3">What Users <span class="text-brandGreen">Say</span></h2>
+                <h2 class="text-3xl font-extrabold text-white mb-3">What Users <span id="reviews-title-highlight">Say</span></h2>
                 <p class="text-gray-400 text-sm md:text-base">Real feedback from our community members.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Review 1 -->
                 <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-full bg-brandGreen/20 border border-brandGreen/40 flex items-center justify-center text-brandGreen font-bold">C</div>
+                                <div class="review-avatar w-10 h-10 rounded-full border flex items-center justify-center font-bold">C</div>
                                 <div>
                                     <h4 class="text-sm font-bold text-white">Cure</h4>
                                     <p class="text-xs text-gray-400">@imnotcure</p>
                                 </div>
                             </div>
-                            <span class="text-brandGreen text-sm font-bold">5/5</span>
+                            <span class="review-rating text-sm font-bold">5/5</span>
                         </div>
                         <p class="text-gray-300 text-sm leading-relaxed">"A nicely well put together script for popular games. I would highly recommend it if you want a simple clean gui to work with."</p>
                     </div>
                 </div>
 
-                <!-- Review 2 -->
                 <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-full bg-brandGreen/20 border border-brandGreen/40 flex items-center justify-center text-brandGreen font-bold">K</div>
+                                <div class="review-avatar w-10 h-10 rounded-full border flex items-center justify-center font-bold">K</div>
                                 <div>
                                     <h4 class="text-sm font-bold text-white">Kedru</h4>
                                     <p class="text-xs text-gray-400">@kedru</p>
                                 </div>
                             </div>
-                            <span class="text-brandGreen text-sm font-bold">5/5</span>
+                            <span class="review-rating text-sm font-bold">5/5</span>
                         </div>
                         <p class="text-gray-300 text-sm leading-relaxed">"Had some really funny moments with friends with this script. Performance is super smooth."</p>
                     </div>
                 </div>
 
-                <!-- Review 3 -->
                 <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-full bg-brandGreen/20 border border-brandGreen/40 flex items-center justify-center text-brandGreen font-bold">F</div>
+                                <div class="review-avatar w-10 h-10 rounded-full border flex items-center justify-center font-bold">F</div>
                                 <div>
                                     <h4 class="text-sm font-bold text-white">Frontman</h4>
                                     <p class="text-xs text-gray-400">@frontman2</p>
                                 </div>
                             </div>
-                            <span class="text-brandGreen text-sm font-bold">5/5</span>
+                            <span class="review-rating text-sm font-bold">5/5</span>
                         </div>
                         <p class="text-gray-300 text-sm leading-relaxed">"BaconHub is impressive, fast, reliable, and gives the noobs a taste of power... awesome features!"</p>
                     </div>
@@ -359,50 +282,16 @@
             </div>
         </section>
 
-        <!-- Supported Exploits Section -->
-        <section id="exploits" class="py-20 px-4 max-w-6xl mx-auto text-center">
-            <h2 class="text-3xl font-extrabold text-white mb-3">Supported <span class="text-brandGreen">Executors</span></h2>
-            <p class="text-gray-400 text-sm md:text-base mb-12">BaconHub is built to be compatible with all major script executors.</p>
-
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
-                <div class="bg-cardBg border border-cardBorder rounded-xl p-6 flex flex-col items-center justify-center">
-                    <i class="fa-solid fa-droplet text-brandGreen text-2xl mb-3"></i>
-                    <span class="text-sm font-bold text-white">Hydrogen</span>
-                </div>
-                <div class="bg-cardBg border border-cardBorder rounded-xl p-6 flex flex-col items-center justify-center">
-                    <i class="fa-solid fa-bolt text-brandGreen text-2xl mb-3"></i>
-                    <span class="text-sm font-bold text-white">Synapse Z</span>
-                </div>
-                <div class="bg-cardBg border border-cardBorder rounded-xl p-6 flex flex-col items-center justify-center">
-                    <i class="fa-solid fa-shield text-brandGreen text-2xl mb-3"></i>
-                    <span class="text-sm font-bold text-white">Delta</span>
-                </div>
-                <div class="bg-cardBg border border-brandGreen/50 rounded-xl p-6 flex flex-col items-center justify-center bg-brandGreen/5">
-                    <i class="fa-solid fa-fire text-brandGreen text-2xl mb-3"></i>
-                    <span class="text-sm font-bold text-white">Seliware</span>
-                </div>
-                <div class="bg-cardBg border border-cardBorder rounded-xl p-6 flex flex-col items-center justify-center col-span-2 sm:col-span-1">
-                    <i class="fa-solid fa-plus text-brandGreen text-2xl mb-3"></i>
-                    <span class="text-sm font-bold text-brandGreen">And more...</span>
-                </div>
-            </div>
-
-            <div class="inline-block bg-cardBg border border-cardBorder rounded-xl p-4 max-w-xl text-xs text-gray-400">
-                <span class="text-brandGreen font-bold">Note:</span> If you don't see your exploit in this list, chances are it still works! BaconHub is designed to be universal.
-            </div>
-        </section>
-
         <!-- FAQ Section -->
         <section id="faq" class="py-20 px-4 max-w-4xl mx-auto">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-extrabold text-white mb-3">Frequently Asked <span class="text-brandGreen">Questions</span></h2>
+                <h2 class="text-3xl font-extrabold text-white mb-3">Frequently Asked <span id="faq-title-highlight">Questions</span></h2>
             </div>
 
             <div class="space-y-4">
-                <!-- FAQ Item 1 -->
                 <div class="bg-cardBg border border-cardBorder rounded-xl overflow-hidden transition-all">
-                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-brandGreen transition-colors">
-                        <span class="text-brandGreen">How do I get whitelisted?</span>
+                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:opacity-80 transition-opacity">
+                        <span class="faq-question-highlight">How do I get whitelisted?</span>
                         <i class="fa-solid fa-chevron-down transition-transform"></i>
                     </button>
                     <div class="px-5 pb-5 text-gray-400 text-sm hidden">
@@ -410,58 +299,13 @@
                     </div>
                 </div>
 
-                <!-- FAQ Item 2 -->
                 <div class="bg-cardBg border border-cardBorder rounded-xl overflow-hidden transition-all">
-                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-brandGreen transition-colors">
+                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:opacity-80 transition-opacity">
                         <span>Where can I report bugs and suggest features?</span>
                         <i class="fa-solid fa-chevron-down transition-transform"></i>
                     </button>
                     <div class="px-5 pb-5 text-gray-400 text-sm hidden">
                         You can reach out to our development team and community through our support channels or GitHub repository issues.
-                    </div>
-                </div>
-
-                <!-- FAQ Item 3 -->
-                <div class="bg-cardBg border border-cardBorder rounded-xl overflow-hidden transition-all">
-                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-brandGreen transition-colors">
-                        <span>Does this work on mobile?</span>
-                        <i class="fa-solid fa-chevron-down transition-transform"></i>
-                    </button>
-                    <div class="px-5 pb-5 text-gray-400 text-sm hidden">
-                        Yes! BaconHub supports mobile executors like Delta and Hydrogen as long as they have good environment support.
-                    </div>
-                </div>
-
-                <!-- FAQ Item 4 -->
-                <div class="bg-cardBg border border-cardBorder rounded-xl overflow-hidden transition-all">
-                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-brandGreen transition-colors">
-                        <span>I can't close the GUI. How can I fix it?</span>
-                        <i class="fa-solid fa-chevron-down transition-transform"></i>
-                    </button>
-                    <div class="px-5 pb-5 text-gray-400 text-sm hidden">
-                        You can use the designated toggle keybind in the settings menu or re-execute the script.
-                    </div>
-                </div>
-
-                <!-- FAQ Item 5 -->
-                <div class="bg-cardBg border border-cardBorder rounded-xl overflow-hidden transition-all">
-                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-brandGreen transition-colors">
-                        <span>What games are supported?</span>
-                        <i class="fa-solid fa-chevron-down transition-transform"></i>
-                    </button>
-                    <div class="px-5 pb-5 text-gray-400 text-sm hidden">
-                        We support Doors, Jailbreak, Piggy, Tower of Hell, Build a Boat For Treasure, and many more universal games!
-                    </div>
-                </div>
-
-                <!-- FAQ Item 6 -->
-                <div class="bg-cardBg border border-cardBorder rounded-xl overflow-hidden transition-all">
-                    <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-semibold text-white hover:text-brandGreen transition-colors">
-                        <span>How do I review the script?</span>
-                        <i class="fa-solid fa-chevron-down transition-transform"></i>
-                    </button>
-                    <div class="px-5 pb-5 text-gray-400 text-sm hidden">
-                        You can leave your feedback and reviews in our community feedback section or submit them directly to us.
                     </div>
                 </div>
             </div>
@@ -474,13 +318,86 @@
         <p>&copy; 2026 BaconHub. All rights reserved. Not affiliated with Roblox Corporation.</p>
     </footer>
 
-    <!-- JavaScript for interactivity -->
+    <!-- Theme and Interactivity Script -->
     <script>
-        // Copy Script Function
+        const themes = [
+            {
+                name: 'green',
+                colorCode: '#00ff66',
+                glowClass: 'bg-[#00ff66]/10 shadow-[0_0_50px_rgba(0,255,102,0.3)]',
+                textShadow: '0 0 25px rgba(0, 255, 102, 0.4)',
+                bgBox: 'bg-[#00ff66]/20 text-[#00ff66] border-[#00ff66]/40',
+                btnPrimary: 'bg-[#00ff66] hover:bg-[#00cc52] text-[#0b0f0c] shadow-[#00ff66]/30',
+                activeFilter: 'bg-[#00ff66] text-[#0b0f0c]'
+            },
+            {
+                name: 'purple',
+                colorCode: '#a855f7',
+                glowClass: 'bg-[#a855f7]/10 shadow-[0_0_50px_rgba(168,85,247,0.3)]',
+                textShadow: '0 0 25px rgba(168, 85, 247, 0.4)',
+                bgBox: 'bg-[#a855f7]/20 text-[#a855f7] border-[#a855f7]/40',
+                btnPrimary: 'bg-[#a855f7] hover:bg-[#9333ea] text-white shadow-[#a855f7]/30',
+                activeFilter: 'bg-[#a855f7] text-white'
+            }
+        ];
+
+        const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+
+        // Apply dynamic theme elements
+        document.getElementById('ambient-glow').className = `absolute w-96 h-96 rounded-full blur-3xl -top-10 pointer-events-none transition-all duration-700 ${randomTheme.glowClass}`;
+        
+        document.getElementById('hero-title-highlight').style.color = randomTheme.colorCode;
+        document.getElementById('hero-title-highlight').style.textShadow = randomTheme.textShadow;
+
+        document.getElementById('feature-title-highlight').style.color = randomTheme.colorCode;
+        document.getElementById('games-title-highlight').style.color = randomTheme.colorCode;
+        document.getElementById('reviews-title-highlight').style.color = randomTheme.colorCode;
+        document.getElementById('faq-title-highlight').style.color = randomTheme.colorCode;
+
+        document.getElementById('promise-text').style.color = randomTheme.colorCode;
+
+        document.getElementById('nav-logo-box').className = `w-8 h-8 rounded-lg border flex items-center justify-center transition-transform group-hover:scale-105 ${randomTheme.bgBox}`;
+        document.getElementById('nav-btn').className = `font-bold px-5 py-2 rounded-full text-sm transition-all shadow-lg transform hover:-translate-y-0.5 ${randomTheme.btnPrimary}`;
+        document.getElementById('hero-btn-primary').className = `w-full sm:w-auto font-extrabold px-8 py-3.5 rounded-xl transition-all shadow-lg flex items-center justify-center space-x-2 ${randomTheme.btnPrimary}`;
+
+        // Feature icons
+        document.querySelectorAll('.feature-icon').forEach(el => {
+            el.className = `feature-icon w-12 h-12 rounded-lg border flex items-center justify-center mb-5 group-hover:scale-110 transition-transform ${randomTheme.bgBox}`;
+        });
+
+        // Working badges
+        document.querySelectorAll('.working-badge').forEach(el => {
+            el.className = `working-badge absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center space-x-1 border ${randomTheme.bgBox}`;
+        });
+        document.querySelectorAll('.dot').forEach(el => {
+            el.style.backgroundColor = randomTheme.colorCode;
+        });
+
+        // Reviews
+        document.querySelectorAll('.review-avatar').forEach(el => {
+            el.className = `review-avatar w-10 h-10 rounded-full border flex items-center justify-center font-bold ${randomTheme.bgBox}`;
+        });
+        document.querySelectorAll('.review-rating').forEach(el => {
+            el.style.color = randomTheme.colorCode;
+        });
+
+        // FAQ highlight
+        document.querySelectorAll('.faq-question-highlight').forEach(el => {
+            el.style.color = randomTheme.colorCode;
+        });
+
+        // Active Filter button style injection
+        const styleSheet = document.createElement("style");
+        styleSheet.innerText = `.active-filter { background-color: ${randomTheme.colorCode} !important; color: #0b0f0c !important; font-weight: bold; }`;
+        document.head.appendChild(styleSheet);
+
+        // Copy Script function
         function copyScript() {
             const scriptContent = `loadstring(game:HttpGet("https://raw.githubusercontent.com/Coolkidreal102/Bacon/main/loader.lua"))()`;
             navigator.clipboard.writeText(scriptContent).then(() => {
                 const toast = document.getElementById('toast');
+                toast.style.borderColor = randomTheme.colorCode;
+                document.getElementById('toast-icon').style.color = randomTheme.colorCode;
                 toast.classList.remove('translate-y-24', 'opacity-0');
                 setTimeout(() => {
                     toast.classList.add('translate-y-24', 'opacity-0');
@@ -488,31 +405,27 @@
             });
         }
 
-        // FAQ Toggle Accordion
+        // FAQ Toggle
         function toggleFaq(button) {
             const content = button.nextElementSibling;
             const icon = button.querySelector('i');
-            
-            // Toggle hidden state
             content.classList.toggle('hidden');
             icon.classList.toggle('rotate-180');
         }
 
-        // Game Filter Function
+        // Game Filter
         function filterGames(category) {
             const cards = document.querySelectorAll('.game-card');
             const buttons = document.querySelectorAll('.filter-btn');
 
-            // Update active button styles
             buttons.forEach(btn => {
                 if(btn.textContent.toLowerCase() === category.toLowerCase() || (category === 'all' && btn.textContent === 'All')) {
-                    btn.className = 'filter-btn bg-brandGreen text-darkBg font-bold px-4 py-1.5 rounded-full text-xs transition-all';
+                    btn.className = 'filter-btn active-filter px-4 py-1.5 rounded-full text-xs transition-all';
                 } else {
                     btn.className = 'filter-btn bg-cardBg border border-cardBorder text-gray-300 hover:text-white font-medium px-4 py-1.5 rounded-full text-xs transition-all';
                 }
             });
 
-            // Filter cards
             cards.forEach(card => {
                 if(category === 'all' || card.getAttribute('data-category') === category) {
                     card.style.display = 'flex';
