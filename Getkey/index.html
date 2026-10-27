@@ -88,26 +88,26 @@
             <div id="floating-b" class="floating-bg-logo w-44 h-44 rounded-3xl border-2 flex items-center justify-center text-8xl font-black">B</div>
         </div>
 
-        <!-- STEP 1: GENERATE TOKEN & CLICK LINK -->
+        <!-- STEP 1: GET KEY BUTTON -->
         <div id="selector-view" class="w-full flex flex-col items-center relative z-10">
             <div class="text-center max-w-2xl mx-auto mb-12">
                 <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
                     BaconHub <span id="title-highlight">Key System</span>
                 </h1>
                 <p class="text-gray-400 text-sm md:text-base mb-6">
-                    Click below to generate your session token and complete the protected link.
+                    Complete the protected link below to instantly generate your script key.
                 </p>
             </div>
 
             <div class="w-full max-w-md">
                 <a href="#" id="kys-link-btn" target="_blank" class="provider-btn bg-cardBg border border-purple-500/40 rounded-2xl p-6 flex flex-col items-center justify-center transition-all group shadow-xl">
                     <span class="text-purple-400 font-extrabold text-lg tracking-wide group-hover:scale-105 transition-transform mb-1">Proceed to Get Key</span>
-                    <span class="text-xs text-gray-400 font-mono" id="session-preview-token">Generating token...</span>
+                    <span class="text-xs text-gray-400 font-mono">Click to start protection</span>
                 </a>
             </div>
         </div>
 
-        <!-- STEP 2: REVEAL UNIQUE KEY UPON RETURN -->
+        <!-- STEP 2: REVEAL KEY UPON RETURN -->
         <div id="success-view" class="w-full flex flex-col items-center relative z-10 hidden">
             <div class="text-center max-w-2xl mx-auto mb-8">
                 <div class="w-16 h-16 bg-brandGreen/20 border border-brandGreen text-brandGreen rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
@@ -116,16 +116,16 @@
                 <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">
                     Key <span class="text-brandGreen">Generated Successfully!</span>
                 </h1>
-                <p class="text-gray-400 text-sm">This unique key is tied to your active session.</p>
+                <p class="text-gray-400 text-sm">Copy your key below to use in BaconHub.</p>
             </div>
 
             <div class="bg-cardBg border border-cardBorder rounded-2xl p-6 w-full max-w-md flex flex-col items-center space-y-4 shadow-2xl">
                 <div class="w-full bg-darkBg border border-cardBorder rounded-xl p-4 text-center font-mono text-brandGreen font-bold tracking-widest text-base select-all" id="unique-key-box">
-                    LOADING...
+                    BACONHUB-FREE-2026-X9K2
                 </div>
                 <button onclick="copyKey()" class="w-full bg-brandGreen hover:bg-brandGreenHover text-darkBg font-extrabold py-3.5 rounded-xl transition-all shadow-lg flex items-center justify-center space-x-2">
                     <i class="fa-solid fa-copy"></i>
-                    <span>Copy Unique Key</span>
+                    <span>Copy Key</span>
                 </button>
             </div>
         </div>
@@ -136,47 +136,28 @@
         <p>&copy; 2026 BaconHub. All rights reserved.</p>
     </footer>
 
-    <!-- Script Logic -->
+    <!-- Clean Direct Script Logic -->
     <script>
-        function generateRandomToken() {
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            let token = "BACON-";
-            for (let i = 0; i < 6; i++) {
-                token += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return token;
-        }
-
+        // Check if user is returning from the link (e.g., ?unlock=true or ?success=true)
         const urlParams = new URLSearchParams(window.location.search);
-        const returningToken = urlParams.get('token');
-        let activeToken = localStorage.getItem('bacon_active_token');
+        const isUnlocked = urlParams.get('unlock') || urlParams.get('success') || localStorage.getItem('bacon_unlocked');
 
-        if (returningToken && returningToken === localStorage.getItem('bacon_pending_token')) {
-            localStorage.removeItem('bacon_pending_token');
-            localStorage.setItem('bacon_unlocked_key', returningToken);
+        if (isUnlocked) {
+            // Save state so they stay unlocked during their session
+            localStorage.setItem('bacon_unlocked', 'true');
+            
+            // Clean the URL parameters so it looks clean
             window.history.replaceState({}, document.title, window.location.pathname);
             
+            // Show success view
             document.getElementById('selector-view').classList.add('hidden');
             document.getElementById('success-view').classList.remove('hidden');
-            document.getElementById('unique-key-box').innerText = returningToken;
-        } 
-        else if (localStorage.getItem('bacon_unlocked_key')) {
-            document.getElementById('selector-view').classList.add('hidden');
-            document.getElementById('success-view').classList.remove('hidden');
-            document.getElementById('unique-key-box').innerText = localStorage.getItem('bacon_unlocked_key');
-        } 
-        else {
-            if (!activeToken) {
-                activeToken = generateRandomToken();
-                localStorage.setItem('bacon_active_token', activeToken);
-            }
+        } else {
+            // Setup the Kys link with a callback parameter so it redirects back here with ?unlock=true
+            const currentURL = window.location.origin + window.location.pathname;
+            const kysBaseURL = "https://kys.linkvertise.lol/DTOM/4fdae661-03dc-4ef4-8148-67115cc21d0f";
             
-            const currentWebsiteURL = window.location.origin + window.location.pathname;
-            const kysBaseURL = "https://kys.linkvertise.lol/DTOM/4fdae661-03dc-4ef4-8148-67115cc21d0f"; 
-            
-            document.getElementById('kys-link-btn').href = `${kysBaseURL}?r=${encodeURIComponent(currentWebsiteURL + "?token=" + activeToken)}`;
-            document.getElementById('session-preview-token').innerText = `Session ID: ${activeToken}`;
-            localStorage.setItem('bacon_pending_token', activeToken);
+            document.getElementById('kys-link-btn').href = `${kysBaseURL}?r=${encodeURIComponent(currentURL + "?unlock=true")}`;
         }
 
         function copyKey() {
